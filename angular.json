@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "Angular11JwtAuth"
+  "defaultProject": "Angular11JwtAuth",
+  "cli": {
+    "analytics": false
+  }
 }

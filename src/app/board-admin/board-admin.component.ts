@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../_services/user.service';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from '../_services/user.service';
+import {User} from '../models/User';
+
 
 @Component({
   selector: 'app-board-admin',
@@ -7,18 +9,21 @@ import { UserService } from '../_services/user.service';
   styleUrls: ['./board-admin.component.css']
 })
 export class BoardAdminComponent implements OnInit {
-  content?: string;
+  users?: User[];
+  constructor(private userService: UserService) {
+  }
 
-  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.userService.getAdminBoard().subscribe(
+    this.userService.getUsers().subscribe(
       data => {
-        this.content = data;
+        this.users = data;
+        console.log(this.users);
       },
       err => {
-        this.content = JSON.parse(err.error).message;
+        this.users = JSON.parse(err.error).message;
       }
     );
+    /*console.log(this.user);*/
   }
 }
