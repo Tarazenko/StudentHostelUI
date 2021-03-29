@@ -1,15 +1,17 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../_services/user.service';
-import {User} from '../models/User';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 
 export interface UserData {
-  id: string;
+  id: number;
+  username: string;
   name: string;
-  progress: string;
-  color: string;
+  surname: string;
+  patronymic: string;
+  email: string;
+  role: string;
 }
 
 /** Constants used to fill up our data base. */
@@ -29,9 +31,9 @@ const NAMES: string[] = [
 })
 
 export class BoardAdminComponent implements AfterViewInit, OnInit {
-  users?: User[];
+  users: UserData[];
 
-  displayedColumns: string[] = ['id', 'name', 'progress', 'color'];
+  displayedColumns: string[] = ['id', 'username', 'name', 'surname', 'patronymic', 'email', 'role'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -39,16 +41,9 @@ export class BoardAdminComponent implements AfterViewInit, OnInit {
 
 
   constructor(private userService: UserService) {
-    // Create 100 users
-    const users = Array.from({length: 100}, (_, k) => this.createNewUser(k + 1));
-
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
   }
 
   applyFilter(event: Event) {
@@ -63,26 +58,16 @@ export class BoardAdminComponent implements AfterViewInit, OnInit {
   ngOnInit(): void {
     this.userService.getUsers().subscribe(
       data => {
-        this.users = data;
-        console.log(this.users);
+        this.users = JSON.parse(data);
+        this.dataSource = new MatTableDataSource(this.users);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       },
       err => {
         this.users = JSON.parse(err.error).message;
+        console.log(this.users);
       }
     );
-  }
-
-  /** Builds and returns a new User. */
-  createNewUser(id: number): UserData {
-    const name = NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
-
-    return {
-      id: id.toString(),
-      name: name,
-      progress: Math.round(Math.random() * 100).toString(),
-      color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
-    };
   }
 }
 

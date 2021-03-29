@@ -20,13 +20,12 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUser(this.authUserId).subscribe(
       data => {
-        this.user = data;
+        this.user = (data as User);
         console.log(this.user);
         },
       err => {
         this.user = JSON.parse(err.error).message;
       }
     );
-    console.log(this.user);
   }
 }
