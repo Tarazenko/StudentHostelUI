@@ -11,7 +11,7 @@ const USER_KEY = 'auth-user';
 })
 
 export class ProfileComponent implements OnInit {
-  user?: User;
+  user: User = new User(0, '-', '-', '-', '-', '-', '-');
   authUserId: number = JSON.parse(sessionStorage.getItem(USER_KEY) as string).id;
 
   constructor(private userService: UserService) {
@@ -20,12 +20,16 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUser(this.authUserId).subscribe(
       data => {
-        this.user = (data as User);
+        this.user = JSON.parse(data);
         console.log(this.user);
         },
       err => {
         this.user = JSON.parse(err.error).message;
       }
     );
+  }
+
+  edit(): void {
+
   }
 }

@@ -1,8 +1,3 @@
-<header class="jumbotron">
-  <h3 align="center">
-    <strong>Профиль</strong>
-  </h3>
-</header>
 <div class="col-md-12">
   <div class="card card-container">
     <img
@@ -11,14 +6,29 @@
       class="profile-img-card"
     />
 
-      <div class="form-group">
-        <p>
-          <strong>Логин:</strong>
-        </p>
-        <p>
-          <strong>Почта:</strong>
-        </p>
-      </div>
+    <div class="form-group">
+      <p>
+        <strong>Логин: </strong>
+        {{user.username}}
+      </p>
+      <p>
+        <strong>Почта:</strong>
+        {{user.email}}
+      </p>
+      <p>
+        <strong>Имя:</strong>
+        {{user.name}}
+      </p>
+      <p>
+        <strong>Фамилия:</strong>
+        {{user.surname}}
+      </p>
+      <p>
+        <strong>Отчество:</strong>
+        {{user.patronymic}}
+      </p>
+    </div>
+    <button mat-raised-button color="primary" (click)="edit()">Изменить</button>
   </div>
 </div>
 
