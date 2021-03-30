@@ -59,6 +59,7 @@ import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {PortalModule} from '@angular/cdk/portal';
+import {AdminEditDialogComponent} from './dialogs/admin-edit/admin-edit.dialog.component';
 
 
 @NgModule({
@@ -70,7 +71,8 @@ import {PortalModule} from '@angular/cdk/portal';
     ProfileComponent,
     BoardAdminComponent,
     BoardModeratorComponent,
-    BoardUserComponent
+    BoardUserComponent,
+    AdminEditDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +83,11 @@ import {PortalModule} from '@angular/cdk/portal';
     MatSortModule,
     BrowserAnimationsModule,
     MatPaginatorModule,
-    MatInputModule
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatRadioModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

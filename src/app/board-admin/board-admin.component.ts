@@ -3,6 +3,9 @@ import {UserService} from '../_services/user.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
+import {MatDialog} from '@angular/material/dialog';
+import {AdminEditDialogComponent} from '../dialogs/admin-edit/admin-edit.dialog.component';
+import {User} from '../models/User';
 
 export interface UserData {
   id: number;
@@ -14,15 +17,6 @@ export interface UserData {
   role: string;
 }
 
-/** Constants used to fill up our data base. */
-const COLORS: string[] = [
-  'maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple', 'fuchsia', 'lime', 'teal',
-  'aqua', 'blue', 'navy', 'black', 'gray'
-];
-const NAMES: string[] = [
-  'Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack', 'Charlotte', 'Theodore', 'Isla', 'Oliver',
-  'Isabella', 'Jasper', 'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'
-];
 
 @Component({
   selector: 'app-board-admin',
@@ -32,15 +26,16 @@ const NAMES: string[] = [
 
 export class BoardAdminComponent implements AfterViewInit, OnInit {
   users: UserData[];
+  dialogUser: User;
 
-  displayedColumns: string[] = ['id', 'username', 'name', 'surname', 'patronymic', 'email', 'role'];
+  displayedColumns: string[] = ['id', 'username', 'name', 'surname', 'patronymic', 'email', 'role', 'actions'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, public dialog: MatDialog) {
   }
 
   ngAfterViewInit() {
@@ -68,6 +63,22 @@ export class BoardAdminComponent implements AfterViewInit, OnInit {
         console.log(this.users);
       }
     );
+  }
+
+  startEdit(i: number, id: number, username: string, name: string, surname: string, email: string, role: string) {
+    const dialogRef = this.dialog.open(AdminEditDialogComponent, {
+      data: {id: id, username: username, name: name, surname: surname, email: email, role: role}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.dialogUser = result;
+      console.log(Object.keys(result));
+    });
+  }
+
+  deleteItem() {
+
   }
 }
 
