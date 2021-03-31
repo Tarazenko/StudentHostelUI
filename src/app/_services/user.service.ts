@@ -10,6 +10,8 @@ const USERS_URL = 'http://localhost:8080/api/users/';
   providedIn: 'root'
 })
 export class UserService {
+  errorMessage: any;
+
   constructor(private http: HttpClient) { }
 
   getPublicContent(): Observable<any> {
@@ -34,6 +36,19 @@ export class UserService {
 
   getUsers(): Observable<any> {
     return this.http.get(USERS_URL , {responseType: 'text'});
+  }
+
+  deleteUser(id: number): void {
+    this.http.delete(USERS_URL + id)
+      .subscribe({
+        next: data => {
+          console.log('Delete successful user with id - ' + id);
+        },
+        error: error => {
+          this.errorMessage = error.message;
+          console.error('There was an error!', error);
+        }
+      });
   }
 
 }

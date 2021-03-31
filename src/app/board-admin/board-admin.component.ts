@@ -6,6 +6,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatDialog} from '@angular/material/dialog';
 import {AdminEditDialogComponent} from '../dialogs/admin-edit/admin-edit.dialog.component';
 import {User} from '../models/User';
+import {AdminDeleteDialogComponent} from '../dialogs/admin-delete/admin-delete.dialog.component';
 
 export interface UserData {
   id: number;
@@ -29,7 +30,7 @@ export class BoardAdminComponent implements AfterViewInit, OnInit {
   dialogUser: User;
 
   displayedColumns: string[] = ['id', 'username', 'name', 'surname', 'patronymic', 'email', 'role', 'actions'];
-  dataSource: MatTableDataSource<UserData>;
+  dataSource: MatTableDataSource<UserData> = new MatTableDataSource();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -51,18 +52,7 @@ export class BoardAdminComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.getUsers().subscribe(
-      data => {
-        this.users = JSON.parse(data);
-        this.dataSource = new MatTableDataSource(this.users);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      },
-      err => {
-        this.users = JSON.parse(err.error).message;
-        console.log(this.users);
-      }
-    );
+    this.refreshTable();
   }
 
   startEdit(i: number, id: number, username: string, name: string, surname: string, email: string, role: string) {
@@ -77,8 +67,31 @@ export class BoardAdminComponent implements AfterViewInit, OnInit {
     });
   }
 
-  deleteItem() {
+  deleteItem(id: number, username: string, name: string, surname: string) {
+    const dialogRef = this.dialog.open(AdminDeleteDialogComponent, {
+      data: {id: id, username: username, name: name, surname: surname}
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) {
+        this.refreshTable();
+      }
+    });
+  }
+
+  private refreshTable() {
+    this.userService.getUsers().subscribe(
+      data => {
+        this.users = JSON.parse(data);
+        this.dataSource.data = this.users;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      err => {
+        this.users = JSON.parse(err.error).message;
+        console.log(this.users);
+      }
+    );
   }
 }
 

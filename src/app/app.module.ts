@@ -60,6 +60,7 @@ import {OverlayModule} from '@angular/cdk/overlay';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {PortalModule} from '@angular/cdk/portal';
 import {AdminEditDialogComponent} from './dialogs/admin-edit/admin-edit.dialog.component';
+import {AdminDeleteDialogComponent} from './dialogs/admin-delete/admin-delete.dialog.component';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import {AdminEditDialogComponent} from './dialogs/admin-edit/admin-edit.dialog.c
     BoardAdminComponent,
     BoardModeratorComponent,
     BoardUserComponent,
-    AdminEditDialogComponent
+    AdminEditDialogComponent,
+    AdminDeleteDialogComponent
   ],
   imports: [
     BrowserModule,
