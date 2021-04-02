@@ -51,4 +51,17 @@ export class UserService {
       });
   }
 
+  updateUser(user: User): void {
+    this.http.put(USERS_URL + user.id, user)
+      .subscribe({
+        next: data => {
+          console.log('Update user with id - ' + user.id);
+        },
+        error: error => {
+          this.errorMessage = error.message;
+          console.error('There was an error!', error);
+        }
+      });
+  }
+
 }
