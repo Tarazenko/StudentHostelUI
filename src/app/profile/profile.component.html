@@ -28,7 +28,7 @@
         {{user.patronymic}}
       </p>
     </div>
-    <button mat-raised-button color="primary" (click)="edit()">Изменить</button>
+    <button mat-raised-button [disabled]="!userExist" color="primary" (click)="startEdit(user.id, user.username, user.name, user.surname, user.patronymic, user.email)">Изменить</button>
   </div>
 </div>
 

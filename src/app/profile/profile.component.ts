@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from '../models/User';
 import {UserService} from '../_services/user.service';
+import {AdminEditDialogComponent} from '../dialogs/admin-edit/admin-edit.dialog.component';
+import {ProfileEditComponent} from '../dialogs/profile-edit/profile-edit.component';
+import {MatDialog} from '@angular/material/dialog';
 
 const USER_KEY = 'auth-user';
 
@@ -13,8 +16,9 @@ const USER_KEY = 'auth-user';
 export class ProfileComponent implements OnInit {
   user: User = new User(0, '-', '-', '-', '-', '-', '-');
   authUserId: number = JSON.parse(sessionStorage.getItem(USER_KEY) as string).id;
+  userExist = false;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -22,6 +26,7 @@ export class ProfileComponent implements OnInit {
       data => {
         this.user = JSON.parse(data);
         console.log(this.user);
+        this.userExist = true;
         },
       err => {
         this.user = JSON.parse(err.error).message;
@@ -31,5 +36,19 @@ export class ProfileComponent implements OnInit {
 
   edit(): void {
 
+  }
+
+  startEdit(id: number, username: string, name: string, surname: string, patronymic: string, email: string) {
+    const dialogRef = this.dialog.open(ProfileEditComponent, {
+      data: {id: id, username: username, name: name, surname: surname, patronymic: patronymic, email: email}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) {
+        console.log('The dialog was closed');
+        console.log(result);
+        this.ngOnInit();
+      }
+    });
   }
 }

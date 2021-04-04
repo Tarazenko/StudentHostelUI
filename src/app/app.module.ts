@@ -61,6 +61,8 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import {PortalModule} from '@angular/cdk/portal';
 import {AdminEditDialogComponent} from './dialogs/admin-edit/admin-edit.dialog.component';
 import {AdminDeleteDialogComponent} from './dialogs/admin-delete/admin-delete.dialog.component';
+import { BoardDocumentsComponent } from './board-documents/board-documents.component';
+import { ProfileEditComponent } from './dialogs/profile-edit/profile-edit.component';
 
 
 @NgModule({
@@ -74,7 +76,9 @@ import {AdminDeleteDialogComponent} from './dialogs/admin-delete/admin-delete.di
     BoardModeratorComponent,
     BoardUserComponent,
     AdminEditDialogComponent,
-    AdminDeleteDialogComponent
+    AdminDeleteDialogComponent,
+    BoardDocumentsComponent,
+    ProfileEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -89,7 +93,9 @@ import {AdminDeleteDialogComponent} from './dialogs/admin-delete/admin-delete.di
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    MatRadioModule
+    MatRadioModule,
+    MatExpansionModule,
+    DragDropModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
