@@ -63,6 +63,8 @@ import {AdminEditDialogComponent} from './dialogs/admin-edit/admin-edit.dialog.c
 import {AdminDeleteDialogComponent} from './dialogs/admin-delete/admin-delete.dialog.component';
 import { BoardDocumentsComponent } from './board-documents/board-documents.component';
 import { ProfileEditComponent } from './dialogs/profile-edit/profile-edit.component';
+import { AddCategoryComponent } from './dialogs/add-category/add-category.component';
+import { AddDocumentComponent } from './dialogs/add-document/add-document.component';
 
 
 @NgModule({
@@ -79,6 +81,8 @@ import { ProfileEditComponent } from './dialogs/profile-edit/profile-edit.compon
     AdminDeleteDialogComponent,
     BoardDocumentsComponent,
     ProfileEditComponent,
+    AddCategoryComponent,
+    AddDocumentComponent,
   ],
   imports: [
     BrowserModule,

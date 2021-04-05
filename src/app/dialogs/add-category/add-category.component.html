@@ -1,0 +1,13 @@
+<div class="container">
+  <!--todo PASSWORD validation EMAIL и всего остального-->
+  <h3 mat-dialog-title> Добавить категорию документа </h3>
+  <div mat-dialog-content>
+    <mat-form-field color="primary">
+      <input matInput placeholder="Название категории" [(ngModel)]="data.name">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions align="center">
+    <button mat-button [mat-dialog-close]="1" (click)="stopEdit()">Добавить</button>
+    <button mat-button (click)="onNoClick()" tabindex="-1">Отмена</button>
+  </div>
+</div>

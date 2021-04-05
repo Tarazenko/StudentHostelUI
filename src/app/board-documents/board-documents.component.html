@@ -1,16 +1,23 @@
-<mat-accordion>
-  <mat-expansion-panel *ngFor="let task of unassignedTasks">
-    <mat-expansion-panel-header class="row">
-      <mat-panel-title>
-        {{ task.title }}
-      </mat-panel-title>
-      <div class="col-3 ">
-        <button mat-button mat-align-tabs="center">Basic</button>
-      </div>
-    </mat-expansion-panel-header>
-    <div *ngFor="let desc of task.description">
-      {{desc}}
-      <button mat-button mat-align-tabs="end">Basic</button>
-    </div>
-  </mat-expansion-panel>
-</mat-accordion>
+<div class="center">
+  <button mat-button (click)="addCategory()">Добавить категорию</button>
+  <button mat-button (click)="addDocument()">Добавить документ</button>
+</div>
+<div class="center">
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let category of categories">
+      <mat-expansion-panel-header class="row">
+        <mat-panel-title>
+          {{ category.name }}
+        </mat-panel-title>
+        <div class="col-3 ">
+          <button mat-button mat-align-tabs="center">Basic</button>
+        </div>
+      </mat-expansion-panel-header>
+        documents
+      <!--<div *ngFor="let desc of task.description">
+        {{desc}}
+        <button mat-button mat-align-tabs="end">Basic</button>
+      </div>-->
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

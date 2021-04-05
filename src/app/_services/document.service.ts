@@ -1,0 +1,64 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import {Category} from '../models/Category';
+
+const DOCUMENTS_URL = 'http://localhost:8080/api/documents';
+const CATEGORIES_URL = DOCUMENTS_URL + '/categories';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class DocumentService {
+  errorMessage: any;
+
+  constructor(private http: HttpClient) { }
+
+  getCategory(id: number): Observable<any> {
+    return this.http.get(CATEGORIES_URL + id, {responseType: 'text'});
+  }
+
+  getCategories(): Observable<any> {
+    return this.http.get(CATEGORIES_URL , {responseType: 'text'});
+  }
+
+  deleteCategory(id: number): void {
+    this.http.delete(CATEGORIES_URL + id)
+      .subscribe({
+        next: data => {
+          console.log('Delete successful category with id - ' + id);
+        },
+        error: error => {
+          this.errorMessage = error.message;
+          console.error('There was an error!', error);
+        }
+      });
+  }
+
+  updateCategory(category: Category): void {
+    this.http.put(CATEGORIES_URL + category.id, category)
+      .subscribe({
+        next: data => {
+          console.log('Update user with id - ' + category.id);
+        },
+        error: error => {
+          this.errorMessage = error.message;
+          console.error('There was an error!', error);
+        }
+      });
+  }
+
+  addCategory(category: Category): void {
+    this.http.post(CATEGORIES_URL, category)
+      .subscribe({
+        next: data => {
+          console.log('Success add category - ' + JSON.stringify(data));
+        },
+        error: error => {
+          this.errorMessage = error.message;
+          console.error('There was an error!', error);
+        }
+      });
+  }
+
+}
