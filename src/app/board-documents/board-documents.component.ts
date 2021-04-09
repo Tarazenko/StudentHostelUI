@@ -5,6 +5,8 @@ import {UserService} from '../_services/user.service';
 import {MatDialog} from '@angular/material/dialog';
 import {ProfileEditComponent} from '../dialogs/profile-edit/profile-edit.component';
 import {AddCategoryComponent} from '../dialogs/add-category/add-category.component';
+import {AddDocumentComponent} from '../dialogs/add-document/add-document.component';
+import {Document} from '../models/Document';
 
 export interface DragDropListItem {
   id: string;
@@ -20,6 +22,7 @@ export interface DragDropListItem {
 export class BoardDocumentsComponent implements OnInit {
 
   categories: Category[];
+  documents: Document[];
 
   constructor(public documentService: DocumentService, public dialog: MatDialog) { }
 
@@ -27,11 +30,24 @@ export class BoardDocumentsComponent implements OnInit {
     this.documentService.getCategories().subscribe(
       data => {
         this.categories = JSON.parse(data);
+        return this.categories;
       },
       err => {
         this.categories = JSON.parse(err.error).message;
       }
     );
+
+    this.documentService.getDocuments().subscribe(
+      data => {
+        this.documents = JSON.parse(data);
+        console.log('Documents in sub - ', JSON.stringify(this.documents));
+        return this.documents;
+      },
+      err => {
+        this.categories = JSON.parse(err.error).message;
+      }
+    );
+
   }
 
   addCategory(): void {
@@ -45,6 +61,24 @@ export class BoardDocumentsComponent implements OnInit {
   }
 
   addDocument() {
-
+    const dialogRef = this.dialog.open(AddDocumentComponent, {data: this.categories});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) {
+        console.log('Add document dialog was closed with adding.');
+        this.ngOnInit();
+      }
+    });
   }
+
+  getDocuments() {
+    this.documentService.getDocuments().subscribe(
+      data => {
+        console.log(JSON.stringify(data));
+      },
+      err => {
+        this.categories = JSON.parse(err.error).message;
+      }
+    );
+  }
+
 }

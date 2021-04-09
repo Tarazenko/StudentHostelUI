@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {Category} from '../models/Category';
+import {User} from '../models/User';
+import {Document} from '../models/Document';
 
 const DOCUMENTS_URL = 'http://localhost:8080/api/documents';
 const CATEGORIES_URL = DOCUMENTS_URL + '/categories';
@@ -61,4 +63,11 @@ export class DocumentService {
       });
   }
 
+  getDocuments(): Observable<any> {
+    return this.http.get(DOCUMENTS_URL , {responseType: 'text'});
+  }
+
+  addDocument(document: Document): Observable<any> {
+    return this.http.post(DOCUMENTS_URL, document);
+  }
 }

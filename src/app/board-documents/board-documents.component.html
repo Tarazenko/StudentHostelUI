@@ -1,6 +1,7 @@
 <div class="center">
   <button mat-button (click)="addCategory()">Добавить категорию</button>
   <button mat-button (click)="addDocument()">Добавить документ</button>
+  <button mat-button (click)="getDocuments()">Документы</button>
 </div>
 <div class="center">
   <mat-accordion>
@@ -13,11 +14,12 @@
           <button mat-button mat-align-tabs="center">Basic</button>
         </div>
       </mat-expansion-panel-header>
-        documents
-      <!--<div *ngFor="let desc of task.description">
-        {{desc}}
-        <button mat-button mat-align-tabs="end">Basic</button>
-      </div>-->
+      <div *ngFor="let document of documents">
+        <div *ngIf="category.name === document.category.name">
+          <a href="{{document.file.url}}">{{ document.name }}</a>
+        </div>
+        <!--<button mat-button mat-align-tabs="end">Basic</button>-->
+      </div>
     </mat-expansion-panel>
   </mat-accordion>
 </div>

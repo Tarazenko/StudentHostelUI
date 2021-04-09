@@ -99,7 +99,8 @@ import { AddDocumentComponent } from './dialogs/add-document/add-document.compon
     MatDialogModule,
     MatRadioModule,
     MatExpansionModule,
-    DragDropModule
+    DragDropModule,
+    MatSelectModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
