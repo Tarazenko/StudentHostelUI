@@ -25,7 +25,7 @@ export class DocumentService {
   }
 
   deleteCategory(id: number): void {
-    this.http.delete(CATEGORIES_URL + id)
+    this.http.delete(CATEGORIES_URL + '/' + id)
       .subscribe({
         next: data => {
           console.log('Delete successful category with id - ' + id);
@@ -38,7 +38,7 @@ export class DocumentService {
   }
 
   updateCategory(category: Category): void {
-    this.http.put(CATEGORIES_URL + category.id, category)
+    this.http.put(CATEGORIES_URL + '/' + category.id, category)
       .subscribe({
         next: data => {
           console.log('Update user with id - ' + category.id);

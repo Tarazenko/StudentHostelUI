@@ -1,7 +1,6 @@
 <div class="center">
   <button mat-button (click)="addCategory()">Добавить категорию</button>
   <button mat-button (click)="addDocument()">Добавить документ</button>
-  <button mat-button (click)="getDocuments()">Документы</button>
 </div>
 <div class="center">
   <mat-accordion>
@@ -10,13 +9,17 @@
         <mat-panel-title>
           {{ category.name }}
         </mat-panel-title>
-        <div class="col-3 ">
-          <button mat-button mat-align-tabs="center">Basic</button>
-        </div>
+        <mat-panel-description>
+          <div class="col-3 ">
+            <button mat-button (click)="deleteCategory(category.id)"> Удалить</button>
+          </div>
+        </mat-panel-description>
       </mat-expansion-panel-header>
       <div *ngFor="let document of documents">
         <div *ngIf="category.name === document.category.name">
-          <a href="{{document.file.url}}">{{ document.name }}</a>
+          <li class="list-group-item">
+            <a href="{{document.file.url}}">{{ document.name }}</a>
+          </li>
         </div>
         <!--<button mat-button mat-align-tabs="end">Basic</button>-->
       </div>

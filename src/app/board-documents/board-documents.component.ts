@@ -70,15 +70,8 @@ export class BoardDocumentsComponent implements OnInit {
     });
   }
 
-  getDocuments() {
-    this.documentService.getDocuments().subscribe(
-      data => {
-        console.log(JSON.stringify(data));
-      },
-      err => {
-        this.categories = JSON.parse(err.error).message;
-      }
-    );
+  deleteCategory(id: number) {
+    this.documentService.deleteCategory(id);
   }
 
 }
