@@ -66,6 +66,7 @@ import { ProfileEditComponent } from './dialogs/profile-edit/profile-edit.compon
 import { AddCategoryComponent } from './dialogs/add-category/add-category.component';
 import { AddDocumentComponent } from './dialogs/add-document/add-document.component';
 import { ApproveComponent } from './dialogs/approve/approve.component';
+import { AddNewsComponent } from './dialogs/add-news/add-news.component';
 
 
 @NgModule({
@@ -85,7 +86,8 @@ import { ApproveComponent } from './dialogs/approve/approve.component';
     AddCategoryComponent,
     AddDocumentComponent,
     ApproveComponent,
-    UpdateCategoryComponent
+    UpdateCategoryComponent,
+    AddNewsComponent
   ],
   imports: [
     BrowserModule,

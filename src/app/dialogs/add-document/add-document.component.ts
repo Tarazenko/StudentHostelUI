@@ -1,11 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Category} from '../../models/Category';
 import {DocumentService} from '../../_services/document.service';
 import {FormControl, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {UploadFilesService} from '../../_services/upload-files.service';
-import {HttpResponse} from '@angular/common/http';
 import {Document} from '../../models/Document';
 import {IFile} from '../../models/IFile';
 
@@ -16,15 +15,13 @@ import {IFile} from '../../models/IFile';
   styleUrls: ['./add-document.component.css']
 })
 export class AddDocumentComponent {
-  selectedFiles?: File;
+  selectedFile?: File;
   currentFile?: File;
   message = '';
   selectedCategory: Category;
 
   ifile: IFile;
   errorMessage: any;
-
-  file: FormData = new FormData();
 
   categories: Category[];
   fileInfos?: Observable<any>;
@@ -49,18 +46,13 @@ export class AddDocumentComponent {
     return this.formControl.hasError('required') ? 'Обязательное поле' : '';
   }
 
-  submit() {
-    // emppty stuff
-  }
-
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
   addDocument(): void {
-    if (this.selectedFiles) {
-      this.file.append(this.selectedFiles.name, this.selectedFiles);
+    if (this.selectedFile) {
       console.log('File from server - ', JSON.stringify(this.ifile));
       console.log('Category index - ', this.categoryIndex);
       console.log('Category - ', JSON.stringify(this.data[this.categoryIndex]));
@@ -83,13 +75,13 @@ export class AddDocumentComponent {
   }
 
   selectFile(event: any): void {
-    this.selectedFiles = event.target.files[0];
+    this.selectedFile = event.target.files[0];
   }
 
   upload(): void {
 
-    if (this.selectedFiles) {
-      const file: File | null = this.selectedFiles;
+    if (this.selectedFile) {
+      const file: File | null = this.selectedFile;
 
       if (file) {
         this.currentFile = file;
@@ -104,25 +96,6 @@ export class AddDocumentComponent {
           }
         }
       );
-        /*this.uploadService.upload(this.currentFile, 's').subscribe(
-          (event: any) => {
-            if (event instanceof HttpResponse) {
-              this.message = event.body.message;
-              console.log(this.message);
-              this.fileInfos = this.uploadService.getFiles();
-            }
-          },
-          (err: any) => {
-            console.log(err);
-            if (err.error && err.error.message) {
-              this.message = err.error.message;
-            } else {
-              this.message = 'Could not upload the file!';
-            }
-
-            this.currentFile = undefined;
-          });
-*/
       }
     }
   }

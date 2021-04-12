@@ -1,6 +1,6 @@
 <div class="container">
   <!--todo validation EMAIL и всего остального-->
-  <h3 mat-dialog-title> Добавить документ </h3>
+  <h3 mat-dialog-title> Добавить новость </h3>
   <div mat-dialog-content>
     <div class="row">
       <div class="col-8">
@@ -14,22 +14,20 @@
         </button>
       </div>
     </div>
-    <mat-form-field appearance="fill">
-      <mat-label>Категории</mat-label>
-      <mat-select [(value)]="categoryIndex" name="category">
-        <mat-option *ngFor="let category of data, let i = index" [value]="i">
-          {{category.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <div>
+    <div mat-dialog-content>
       <mat-form-field color="primary">
-        <input matInput placeholder="Отображаемое имя документа" [(ngModel)]="documentName">
+        <input matInput placeholder="Заголовок" [(ngModel)]="data.title">
       </mat-form-field>
     </div>
+    <mat-form-field color="primary">
+      <input matInput placeholder="Описание" [(ngModel)]="data.preview">
+    </mat-form-field>
+    <mat-form-field color="primary">
+      <input matInput placeholder="Основной текст" [(ngModel)]="data.text">
+    </mat-form-field>
   </div>
   <div mat-dialog-actions align="center">
-    <button mat-button [mat-dialog-close]="1" (click)="addDocument()">Добавить</button>
+    <button mat-button [mat-dialog-close]="1" (click)="addNews()">Добавить</button>
     <button mat-button (click)="onNoClick()" tabindex="-1">Отмена</button>
   </div>
 </div>

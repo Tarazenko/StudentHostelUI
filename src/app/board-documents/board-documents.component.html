@@ -25,7 +25,7 @@
       <div *ngFor="let document of documents">
         <div *ngIf="category.name === document.category.name">
           <mat-card>
-            <a href="{{ document.file.url }}" >{{ document.name }}</a>
+            <a href="{{ document.file.url }}"  >{{ document.name }}</a>
             <button mat-icon-button color="warn" (click)="deleteDocument(document.id, document.name)" *ngIf="show">
               <mat-icon aria-label="Delete">delete</mat-icon>
             </button>
