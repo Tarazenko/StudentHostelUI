@@ -61,10 +61,11 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import {PortalModule} from '@angular/cdk/portal';
 import {AdminEditDialogComponent} from './dialogs/admin-edit/admin-edit.dialog.component';
 import {AdminDeleteDialogComponent} from './dialogs/admin-delete/admin-delete.dialog.component';
-import { BoardDocumentsComponent } from './board-documents/board-documents.component';
+import {BoardDocumentsComponent, UpdateCategoryComponent} from './board-documents/board-documents.component';
 import { ProfileEditComponent } from './dialogs/profile-edit/profile-edit.component';
 import { AddCategoryComponent } from './dialogs/add-category/add-category.component';
 import { AddDocumentComponent } from './dialogs/add-document/add-document.component';
+import { ApproveComponent } from './dialogs/approve/approve.component';
 
 
 @NgModule({
@@ -83,6 +84,8 @@ import { AddDocumentComponent } from './dialogs/add-document/add-document.compon
     ProfileEditComponent,
     AddCategoryComponent,
     AddDocumentComponent,
+    ApproveComponent,
+    UpdateCategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -100,7 +103,8 @@ import { AddDocumentComponent } from './dialogs/add-document/add-document.compon
     MatRadioModule,
     MatExpansionModule,
     DragDropModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCardModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

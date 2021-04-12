@@ -11,7 +11,8 @@ import {UserService} from '../../_services/user.service';
 })
 export class AdminDeleteDialogComponent {
 
-  constructor(private userService: UserService, public dialogRef: MatDialogRef<AdminDeleteDialogComponent>,
+  constructor(private userService: UserService,
+              public dialogRef: MatDialogRef<AdminDeleteDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: User) { }
 
   onNoClick(): void {

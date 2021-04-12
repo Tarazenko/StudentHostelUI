@@ -3,5 +3,13 @@
 }
 
 .center {
-  margin-top: 100px;
+  margin-top: 50px;
 }
+
+.title{
+  margin-top: auto;
+  margin-bottom: auto;
+  font-weight: 500;
+  font-size: 16px;
+}
+

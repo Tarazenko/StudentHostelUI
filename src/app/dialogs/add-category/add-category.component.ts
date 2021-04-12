@@ -1,7 +1,5 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {User} from '../../models/User';
-import {UserService} from '../../_services/user.service';
 import {FormControl, Validators} from '@angular/forms';
 import {Category} from '../../models/Category';
 import {DocumentService} from '../../_services/document.service';
@@ -37,7 +35,7 @@ export class AddCategoryComponent {
     this.dialogRef.close();
   }
 
-  stopEdit(): void {
+  addCategory(): void {
     this.categoryService.addCategory(this.data);
   }
 

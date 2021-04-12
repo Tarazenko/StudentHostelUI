@@ -36,6 +36,18 @@ export class DocumentService {
         }
       });
   }
+  deleteDocument(id: number): void {
+    this.http.delete(DOCUMENTS_URL + '/' + id)
+      .subscribe({
+        next: data => {
+          console.log('Successful delete document with id - ' + id);
+        },
+        error: error => {
+          this.errorMessage = error.message;
+          console.error('There was an error!', error);
+        }
+      });
+  }
 
   updateCategory(category: Category): void {
     this.http.put(CATEGORIES_URL + '/' + category.id, category)

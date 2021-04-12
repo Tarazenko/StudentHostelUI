@@ -1,27 +1,36 @@
-<div class="center">
-  <button mat-button (click)="addCategory()">Добавить категорию</button>
-  <button mat-button (click)="addDocument()">Добавить документ</button>
+<div class="center" *ngIf="show">
+  <button mat-raised-button color="primary" (click)="addCategory()">Добавить категорию</button>
+  <button mat-raised-button color="primary" (click)="addDocument()" style="margin-left: 10px">Добавить документ</button>
 </div>
+
 <div class="center">
   <mat-accordion>
-    <mat-expansion-panel *ngFor="let category of categories">
+    <mat-expansion-panel *ngFor="let category of categories" [disabled]="clickButton" (click)="clickButton=false">
       <mat-expansion-panel-header class="row">
-        <mat-panel-title>
+        <mat-panel-title class="title">
           {{ category.name }}
         </mat-panel-title>
-        <mat-panel-description>
-          <div class="col-3 ">
-            <button mat-button (click)="deleteCategory(category.id)"> Удалить</button>
+        <mat-panel-description class="col-3" *ngIf="show">
+          <div>
+            <button mat-raised-button color="primary" (click)="updateCategory(category)" style="margin-right: 5px">
+              Изменить
+            </button>
+            <button mat-raised-button color="accent" (click)="deleteCategory(category.id, category.name)">
+              Удалить
+            </button>
           </div>
         </mat-panel-description>
       </mat-expansion-panel-header>
+
       <div *ngFor="let document of documents">
         <div *ngIf="category.name === document.category.name">
-          <li class="list-group-item">
-            <a href="{{document.file.url}}">{{ document.name }}</a>
-          </li>
+          <mat-card>
+            <a href="{{ document.file.url }}" >{{ document.name }}</a>
+            <button mat-icon-button color="warn" (click)="deleteDocument(document.id, document.name)" *ngIf="show">
+              <mat-icon aria-label="Delete">delete</mat-icon>
+            </button>
+          </mat-card>
         </div>
-        <!--<button mat-button mat-align-tabs="end">Basic</button>-->
       </div>
     </mat-expansion-panel>
   </mat-accordion>
