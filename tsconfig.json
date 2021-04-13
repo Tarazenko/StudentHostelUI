@@ -23,7 +23,7 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noFallthroughCasesInSwitch": true,
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "strictBindCallApply": true,
     "strictFunctionTypes": true
   },
