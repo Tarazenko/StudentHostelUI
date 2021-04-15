@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../_services/user.service';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from '../_services/user.service';
 import {News} from '../models/News';
 import {AddDocumentComponent} from '../dialogs/add-document/add-document.component';
 import {MatDialog} from '@angular/material/dialog';
 import {AddNewsComponent} from '../dialogs/add-news/add-news.component';
+import {NewsService} from '../_services/news.service';
+import {TokenStorageService} from '../_services/token-storage.service';
 
 @Component({
   selector: 'app-home',
@@ -12,52 +14,36 @@ import {AddNewsComponent} from '../dialogs/add-news/add-news.component';
 })
 export class HomeComponent implements OnInit {
   content?: string;
+  baseNewsUrl = 'http://localhost:4200/news/';
 
-  news: News[] = [
-    {
-      id: 1,
-      title: 'News 1',
-      preview: 'Preview 1',
-      text: 'Simple text'
-    },
-    {
-      id: 2,
-      title: 'News 2',
-      preview: 'Preview 2',
-      text: 'Simple text'
-    },
-    {
-      id: 1,
-      title: 'News 1',
-      preview: 'Preview 1',
-      text: 'Simple text'
-    },
-    {
-      id: 2,
-      title: 'News 2',
-      preview: 'Preview 2',
-      text: 'Simple text'
-    },
-    {
-      id: 1,
-      title: 'News 1',
-      preview: 'Preview 1',
-      text: 'Simple text'
-    },
-    {
-      id: 2,
-      title: 'News 2',
-      preview: 'Preview 2',
-      text: 'Simple text'
-    }
-  ];
+  news: News[];
+  error: string;
 
+  show: false;
 
-  constructor(private userService: UserService, public dialog: MatDialog) { }
+  constructor(private userService: UserService,
+              public dialog: MatDialog,
+              public newsService: NewsService,
+              private tokenStorageService: TokenStorageService) {
+  }
 
 
   public ngOnInit(): void {
+    const user = this.tokenStorageService.getUser();
 
+    if (user != null) {
+      this.show = user.roles.includes('ROLE_ADMIN') || user.roles.includes('ROLE_MODERATOR');
+    }
+
+    this.newsService.getAllNews().subscribe(
+      data => {
+        this.news = JSON.parse(data);
+        return this.news;
+      },
+      err => {
+        this.error = JSON.parse(err.error).message;
+      }
+    );
   }
 
   public addNews(): void {
@@ -68,5 +54,9 @@ export class HomeComponent implements OnInit {
         this.ngOnInit();
       }
     });
+  }
+
+  public deleteNews(id: number) {
+    this.newsService.deleteNews(id);
   }
 }

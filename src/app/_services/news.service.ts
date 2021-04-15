@@ -14,7 +14,7 @@ export class NewsService {
   constructor(private http: HttpClient) { }
 
   getNews(id: number): Observable<any> {
-    return this.http.get(NEWS_URL + id, {responseType: 'text'});
+    return this.http.get(NEWS_URL + '/' + id, {responseType: 'text'});
   }
 
   getAllNews(): Observable<any> {

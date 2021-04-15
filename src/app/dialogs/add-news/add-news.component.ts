@@ -16,7 +16,7 @@ export class AddNewsComponent implements OnInit {
   ifile: IFile;
   errorMessage: any;
 
-  news: News;
+  news: News = {preview: '', text: '', title: ''};
 
   constructor(public dialogRef: MatDialogRef<AddNewsComponent>,
               @Inject(MAT_DIALOG_DATA) public data: News,
@@ -30,14 +30,8 @@ export class AddNewsComponent implements OnInit {
 
   addNews(): void {
     if (this.selectedFile) {
+      this.news.file = this.ifile;
       console.log('File from server - ', JSON.stringify(this.ifile));
-      this.news = {
-        id: 0,
-        title: this.data.title,
-        image: this.ifile,
-        text: this.data.text,
-        preview: this.data.preview
-      }
       this.newsService.addNews(this.news).subscribe({
         next: data => {
           console.log('News from server - ' + JSON.stringify(data));

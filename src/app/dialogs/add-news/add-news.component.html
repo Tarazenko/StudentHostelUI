@@ -16,15 +16,19 @@
     </div>
     <div mat-dialog-content>
       <mat-form-field color="primary">
-        <input matInput placeholder="Заголовок" [(ngModel)]="data.title">
+        <input matInput placeholder="Заголовок" [(ngModel)]="news.title">
       </mat-form-field>
     </div>
-    <mat-form-field color="primary">
-      <input matInput placeholder="Описание" [(ngModel)]="data.preview">
-    </mat-form-field>
-    <mat-form-field color="primary">
-      <input matInput placeholder="Основной текст" [(ngModel)]="data.text">
-    </mat-form-field>
+    <div>
+      <mat-form-field color="primary">
+        <input matInput placeholder="Описание" [(ngModel)]="news.preview">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field color="primary">
+        <textarea matInput placeholder="Основной текст" [(ngModel)]="news.text"></textarea>
+      </mat-form-field>
+    </div>
   </div>
   <div mat-dialog-actions align="center">
     <button mat-button [mat-dialog-close]="1" (click)="addNews()">Добавить</button>

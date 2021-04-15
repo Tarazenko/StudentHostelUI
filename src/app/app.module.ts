@@ -67,6 +67,7 @@ import { AddCategoryComponent } from './dialogs/add-category/add-category.compon
 import { AddDocumentComponent } from './dialogs/add-document/add-document.component';
 import { ApproveComponent } from './dialogs/approve/approve.component';
 import { AddNewsComponent } from './dialogs/add-news/add-news.component';
+import { NewsComponent } from './news/news.component';
 
 
 @NgModule({
@@ -87,7 +88,8 @@ import { AddNewsComponent } from './dialogs/add-news/add-news.component';
     AddDocumentComponent,
     ApproveComponent,
     UpdateCategoryComponent,
-    AddNewsComponent
+    AddNewsComponent,
+    NewsComponent
   ],
   imports: [
     BrowserModule,

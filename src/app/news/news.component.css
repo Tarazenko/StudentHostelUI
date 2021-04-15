@@ -1,0 +1,24 @@
+.container {
+  margin-top: 5%;
+}
+
+.title{
+  font-size: 30px;
+  margin-bottom: 2%;
+}
+
+.text{
+  white-space:pre-wrap;
+  font-size: 14px;
+}
+
+.image-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+
+
+
+
