@@ -25,6 +25,9 @@ export class BoardDocumentsComponent implements OnInit {
 
   categories: Category[];
   documents: Document[];
+
+  editedCategory: Category;
+
   show = false;
 
   clickButton = false;
@@ -99,7 +102,11 @@ export class BoardDocumentsComponent implements OnInit {
 
   updateCategory(category: Category) {
     this.clickButton = true;
-    const dialogRef = this.dialog.open(UpdateCategoryComponent, {data: category});
+    this.editedCategory = {
+      id: category.id,
+      name: category.name
+    };
+    const dialogRef = this.dialog.open(UpdateCategoryComponent, {data: this.editedCategory});
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
         console.log('Update category with id - ', category.id);
@@ -122,22 +129,27 @@ export class BoardDocumentsComponent implements OnInit {
 }
 
 
-
 @Component({
   selector: 'update-category',
   templateUrl: './update-category.component.html',
   styleUrls: ['./update-category.component.css']
 })
 export class UpdateCategoryComponent {
-  category: Category = this.categoryData;
+  category: Category = {
+    id: this.categoryData.id,
+    name: this.categoryData.name
+  };
+
   constructor(public dialogRef: MatDialogRef<UpdateCategoryComponent>,
               @Inject(MAT_DIALOG_DATA) public categoryData: Category,
-              public categoryService: DocumentService) { }
+              public categoryService: DocumentService) {
+  }
+
   onNoClick(): void {
     this.dialogRef.close();
   }
 
   updateCategory(): void {
-    this.categoryService.updateCategory(this.categoryData);
+    this.categoryService.updateCategory(this.category);
   }
 }
