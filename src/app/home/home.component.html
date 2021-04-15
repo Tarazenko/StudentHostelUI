@@ -12,7 +12,7 @@
       {{item.preview}}
     </mat-card-content>
     <mat-card-actions align="end" *ngIf="show">
-      <button mat-icon-button color="warn" (click)="deleteNews(item.id)">
+      <button mat-icon-button color="warn" (click)="deleteNews(item.id, item.title)">
         <mat-icon aria-label="Delete">delete</mat-icon>
       </button>
     </mat-card-actions>

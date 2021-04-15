@@ -6,6 +6,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {AddNewsComponent} from '../dialogs/add-news/add-news.component';
 import {NewsService} from '../_services/news.service';
 import {TokenStorageService} from '../_services/token-storage.service';
+import {ApproveComponent} from '../dialogs/approve/approve.component';
 
 @Component({
   selector: 'app-home',
@@ -56,7 +57,16 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  public deleteNews(id: number) {
-    this.newsService.deleteNews(id);
+  public deleteNews(id: number, title: string) {
+    const message = 'Вы уверены чт хотите удалить новость - ' + title;
+    const dialogRef = this.dialog.open(ApproveComponent, {data: message});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) {
+        console.log('Delete news with id - ', id);
+        this.newsService.deleteNews(id);
+        window.location.reload();
+      }
+    });
+
   }
 }
