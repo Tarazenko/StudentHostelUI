@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   min-width: 300px;
+  max-width: 500px;
 }
 
 .container > * {
@@ -11,4 +12,14 @@
 .form {
   display: flex;
   padding-top: 6px;
+}
+
+.news-form {
+  min-width: 150px;
+  max-width: 700px;
+  width: 100%;
+}
+
+.news-field {
+  width: 100%;
 }
