@@ -69,6 +69,7 @@ import { ApproveComponent } from './dialogs/approve/approve.component';
 import { AddNewsComponent } from './dialogs/add-news/add-news.component';
 import { NewsComponent } from './news/news.component';
 import {NgxMatFileInputModule} from '@angular-material-components/file-input';
+import { ServiceBoardComponent } from './service-board/service-board.component';
 
 
 @NgModule({
@@ -90,7 +91,8 @@ import {NgxMatFileInputModule} from '@angular-material-components/file-input';
     ApproveComponent,
     UpdateCategoryComponent,
     AddNewsComponent,
-    NewsComponent
+    NewsComponent,
+    ServiceBoardComponent
   ],
   imports: [
     BrowserModule,
@@ -112,6 +114,7 @@ import {NgxMatFileInputModule} from '@angular-material-components/file-input';
     MatCardModule,
     NgxMatFileInputModule,
     ReactiveFormsModule,
+    MatTabsModule,
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

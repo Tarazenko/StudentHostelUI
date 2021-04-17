@@ -10,6 +10,7 @@ import { BoardModeratorComponent } from './board-moderator/board-moderator.compo
 import { BoardAdminComponent } from './board-admin/board-admin.component';
 import {BoardDocumentsComponent} from './board-documents/board-documents.component';
 import {NewsComponent} from './news/news.component';
+import {ServiceBoardComponent} from './service-board/service-board.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'admin', component: BoardAdminComponent },
   { path: 'documents', component: BoardDocumentsComponent },
   { path: 'news/:id', component: NewsComponent },
+  { path: 'service', component: ServiceBoardComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 
