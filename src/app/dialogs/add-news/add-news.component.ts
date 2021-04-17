@@ -4,6 +4,9 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {UploadFilesService} from '../../_services/upload-files.service';
 import {News} from '../../models/News';
 import {NewsService} from '../../_services/news.service';
+import {FormControl, Validators} from '@angular/forms';
+import {MaxSizeValidator} from '@angular-material-components/file-input';
+import {async} from 'rxjs';
 
 @Component({
   selector: 'app-add-news',
@@ -16,6 +19,12 @@ export class AddNewsComponent implements OnInit {
   ifile: IFile;
   errorMessage: any;
 
+  file: any;
+  maxSize = 16; // MB
+
+  shouldDisable = true;
+
+  fileControl: FormControl;
   news: News = {preview: '', text: '', title: ''};
 
   constructor(public dialogRef: MatDialogRef<AddNewsComponent>,
@@ -23,24 +32,37 @@ export class AddNewsComponent implements OnInit {
               public uploadService: UploadFilesService,
               public newsService: NewsService
   ) {
+    this.fileControl = new FormControl(this.file, [
+      Validators.required,
+      MaxSizeValidator(this.maxSize * 1024 * 1024)
+    ]);
   }
 
   ngOnInit(): void {
+    this.fileControl.valueChanges.subscribe((file: any) => {
+      this.file = file;
+      if (!this.fileControl.errors) {
+        this.shouldDisable = false;
+      }
+    });
   }
 
   addNews(): void {
-    if (this.selectedFile) {
-      this.news.file = this.ifile;
-      console.log('File from server - ', JSON.stringify(this.ifile));
-      this.newsService.addNews(this.news).subscribe({
-        next: data => {
-          console.log('News from server - ' + JSON.stringify(data));
-        },
-        error: error => {
-          this.errorMessage = error.message;
-          console.error('There was an error!', error);
-        }
-      });
+    if (!this.fileControl.errors) {
+      console.log('File after subscribe - ', JSON.stringify(this.ifile));
+      if (this.ifile) {
+        this.news.file = this.ifile;
+        console.log('File from server - ', JSON.stringify(this.ifile));
+        this.newsService.addNews(this.news).subscribe({
+          next: data => {
+            console.log('News from server - ' + JSON.stringify(data));
+          },
+          error: error => {
+            this.errorMessage = error.message;
+            console.error('There was an error!', error);
+          }
+        });
+      }
     }
   }
 
@@ -48,30 +70,23 @@ export class AddNewsComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  selectFile(event: any): void {
-    this.selectedFile = event.target.files[0];
-  }
-
   upload(): void {
-
-    if (this.selectedFile) {
-      const file: File | null = this.selectedFile;
-
-      if (file) {
-        this.currentFile = file;
-        this.uploadService.uploadFile(this.currentFile).subscribe({
-            next: data => {
-              this.ifile = data;
-              console.log('Success upload file -' + JSON.stringify(this.ifile));
-            },
-            error: error => {
-              this.errorMessage = error.message;
-              console.error('There was an error!', error);
-            }
+    console.log('File errors ', this.fileControl.errors);
+    console.log('File to upload - ', this.file.name);
+    if (this.file) {
+      this.uploadService.uploadFile(this.file).subscribe({
+          next: data => {
+            this.ifile = data;
+            console.log('Success upload file -' + JSON.stringify(this.ifile));
+            close();
+          },
+          error: error => {
+            this.errorMessage = error.message;
+            console.error('There was an error!', error);
           }
-        );
-      }
+        }
+      );
+      console.log('File after subscribe - ', JSON.stringify(this.ifile));
     }
   }
-
 }

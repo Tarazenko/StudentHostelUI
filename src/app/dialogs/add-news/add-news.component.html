@@ -2,7 +2,7 @@
   <!--todo validation EMAIL и всего остального-->
   <h3 mat-dialog-title> Добавить новость </h3>
   <div mat-dialog-content>
-    <div class="row">
+<!--    <div class="row">
       <div class="col-8">
         <label for="file" class="btn btn-default p-0">
           <input type="file" id="file" (change)="selectFile($event)"/>
@@ -13,7 +13,21 @@
           Upload
         </button>
       </div>
-    </div>
+    </div>-->
+
+      <mat-form-field>
+        <ngx-mat-file-input [formControl]="fileControl" [multiple]="false" [accept]="'.jpg'">
+           <mat-icon ngxMatFileInputIcon>folder</mat-icon>
+        </ngx-mat-file-input>
+        <mat-error *ngIf="fileControl.hasError('required')">
+          Please select a file
+        </mat-error>
+        <mat-error *ngIf="fileControl.hasError('maxSize')">
+          The total size must not exceed size
+        </mat-error>
+      </mat-form-field>
+
+    <button mat-button (click)="upload()">Загрузить</button>
 
     <div mat-dialog-content>
       <mat-form-field color="primary">
@@ -32,7 +46,7 @@
     </div>
   </div>
   <div mat-dialog-actions align="center">
-    <button mat-button [mat-dialog-close]="1" (click)="addNews()">Добавить</button>
+    <button mat-button [mat-dialog-close]="1" (click)="addNews()" [disabled]="shouldDisable">Добавить</button>
     <button mat-button (click)="onNoClick()" tabindex="-1">Отмена</button>
   </div>
 </div>

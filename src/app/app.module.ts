@@ -111,6 +111,7 @@ import {NgxMatFileInputModule} from '@angular-material-components/file-input';
     MatSelectModule,
     MatCardModule,
     NgxMatFileInputModule,
+    ReactiveFormsModule,
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
