@@ -68,6 +68,7 @@ import { AddDocumentComponent } from './dialogs/add-document/add-document.compon
 import { ApproveComponent } from './dialogs/approve/approve.component';
 import { AddNewsComponent } from './dialogs/add-news/add-news.component';
 import { NewsComponent } from './news/news.component';
+import {NgxMatFileInputModule} from '@angular-material-components/file-input';
 
 
 @NgModule({
@@ -108,7 +109,8 @@ import { NewsComponent } from './news/news.component';
     MatExpansionModule,
     DragDropModule,
     MatSelectModule,
-    MatCardModule
+    MatCardModule,
+    NgxMatFileInputModule,
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
