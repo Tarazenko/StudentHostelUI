@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Request} from '../../models/Request';
 
 @Component({
   selector: 'app-add-request',
@@ -8,18 +9,30 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class AddRequestComponent implements OnInit {
 
-  isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder) {}
+  request: Request = {
+    content: '',
+    comment: '',
+    state: ''
+  };
+
+  constructor(private _formBuilder: FormBuilder) {
+  }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
+      firstCtrl: ['', [Validators.required, Validators.maxLength(4),
+        Validators.min(0), Validators.max(9999)]]
     });
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
+  }
+
+  onClick() {
+      // @ts-ignore
+    console.log('error', this.firstFormGroup.get('firstCtrl').errors);
   }
 }

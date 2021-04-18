@@ -1,37 +1,48 @@
-
 <mat-vertical-stepper [linear]="true" #stepper>
   <mat-step [stepControl]="firstFormGroup">
     <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Fill out your name</ng-template>
+      <ng-template matStepLabel>Введите номер комнаты</ng-template>
       <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+        <mat-label>Номер комнаты</mat-label>
+        <input matInput type="number" oninput="this.value=this.value.slice(0,this.maxLength)"
+               maxlength="4"
+               min="0" max="9999"
+               placeholder="Номер" formControlName="firstCtrl"
+               required [(ngModel)]="request.room">
+        <mat-error *ngIf="firstFormGroup.get('firstCtrl').hasError('required')">
+          Введите номер комнаты!
+        </mat-error>
       </mat-form-field>
       <div>
-        <button mat-button matStepperNext>Next</button>
+        <button mat-raised-button color="primary" matStepperNext (click)="onClick()">Далее</button>
       </div>
     </form>
   </mat-step>
   <mat-step [stepControl]="secondFormGroup">
-    <form [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Fill out your address</ng-template>
-      <mat-form-field>
-        <mat-label>Address</mat-label>
-        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-               required>
+    <form [formGroup]="secondFormGroup" class="text-area">
+      <ng-template matStepLabel>Описание проблемы</ng-template>
+      <mat-form-field class="text-area">
+        <mat-label>Проблема</mat-label>
+        <textarea matInput class="text-area" #message formControlName="secondCtrl"
+                  placeholder="Описание проблемы" maxlength="255" required [(ngModel)]="request.content"></textarea>
+        <mat-hint align="end">{{message.value.length}} / 255</mat-hint>
+        <mat-error *ngIf="secondFormGroup.get('secondCtrl').hasError('required')">
+          Введите описание проблемы!
+        </mat-error>
       </mat-form-field>
       <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+        <button mat-raised-button color="primary" matStepperPrevious>Назад</button>
+        <button mat-raised-button color="primary" matStepperNext>Далее</button>
       </div>
     </form>
   </mat-step>
   <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    <p>You are now done.</p>
+    <ng-template matStepLabel>Проверьте заявку</ng-template>
+    <p><strong>Комната:</strong> {{request.room}}</p>
+    <p class="text"><strong>Заявка:</strong> <br>{{request.content}}</p>
     <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
+      <button mat-raised-button color="primary" matStepperPrevious>Назад</button>
+      <button mat-raised-button color="primary" (click)="stepper.reset()">Отправить</button>
     </div>
   </mat-step>
 </mat-vertical-stepper>

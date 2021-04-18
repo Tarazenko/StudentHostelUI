@@ -1,3 +1,20 @@
 mat-vertical-stepper{
   margin-top: 2%;
 }
+
+button{
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.text-area{
+  max-height: 300px;
+  min-height: 200px;
+  max-width: 500px;
+  min-width: 300px;
+}
+
+.text{
+  white-space:pre-wrap;
+  font-size: 14px;
+}
