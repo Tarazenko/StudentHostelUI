@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Request} from '../../models/Request';
+import {RequestService} from '../../_services/request.service';
+import {TokenStorageService} from '../../_services/token-storage.service';
+import {User} from '../../models/User';
 
 @Component({
   selector: 'app-add-request',
@@ -12,13 +15,21 @@ export class AddRequestComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 
+  error: string;
+
+  isReset = false;
+
   request: Request = {
     content: '',
     comment: '',
-    state: ''
+    status: 'WAITING'
   };
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder,
+              private requestService: RequestService,
+              private tokenService: TokenStorageService) {
+    this.request.user =  <User> tokenService.getUser();
+    console.log(JSON.stringify(this.request));
   }
 
   ngOnInit() {
@@ -32,7 +43,19 @@ export class AddRequestComponent implements OnInit {
   }
 
   onClick() {
-      // @ts-ignore
-    console.log('error', this.firstFormGroup.get('firstCtrl').errors);
+  }
+
+  sendRequest(): void {
+    this.requestService.addRequest(this.request).subscribe({
+      next: data => {
+        console.log('Request from server - ' + JSON.stringify(data));
+        this.isReset = true;
+        window.location.reload();
+      },
+      error: error => {
+        this.error = error.message;
+        console.error('There was an error!', error);
+      }
+    });
   }
 }

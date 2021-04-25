@@ -1,3 +1,15 @@
-.group{
+.group {
   margin-top: 2%;
+}
+
+.material-icons.color_green {
+  color: #00FF00;
+}
+
+.material-icons.color_red {
+  color: #ff0000;
+}
+
+.material-icons.color_blue {
+  color: #0037ff;
 }

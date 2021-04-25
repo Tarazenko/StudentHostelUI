@@ -39,7 +39,7 @@ export class AddNewsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fileControl.valueChanges.subscribe((file: any) => {
+     this.fileControl.valueChanges.subscribe((file: any) => {
       this.file = file;
       if (!this.fileControl.errors) {
         this.shouldDisable = false;
@@ -49,6 +49,7 @@ export class AddNewsComponent implements OnInit {
 
   addNews(): void {
     if (!this.fileControl.errors) {
+      this.upload();
       console.log('File after subscribe - ', JSON.stringify(this.ifile));
       if (this.ifile) {
         this.news.file = this.ifile;
@@ -70,15 +71,14 @@ export class AddNewsComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  upload(): void {
+  async upload() {
     console.log('File errors ', this.fileControl.errors);
     console.log('File to upload - ', this.file.name);
     if (this.file) {
-      this.uploadService.uploadFile(this.file).subscribe({
+      await this.uploadService.uploadFile(this.file).subscribe({
           next: data => {
             this.ifile = data;
             console.log('Success upload file -' + JSON.stringify(this.ifile));
-            close();
           },
           error: error => {
             this.errorMessage = error.message;

@@ -1,5 +1,41 @@
 <mat-tab-group class="group" animationDuration="1000ms">
-  <mat-tab label="Мои заявки">Мои заявки</mat-tab>
+  <mat-tab label="Мои заявки">
+    <div *ngIf="requests.length == 0">
+      <mat-card>
+        Пока нет ни одной заявки
+      </mat-card>
+    </div>
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let request of requests, index as i">
+        <mat-expansion-panel-header class="row">
+          <mat-panel-title class="title">
+            Заявка {{i + 1}}
+          </mat-panel-title>
+          <mat-panel-description class="col-3">
+            <div *ngIf="request.status == 'WAITING'">
+              <i class="material-icons color_blue">query_builder</i>
+            </div>
+            <div *ngIf="request.status == 'IN_PROGRESS'">
+              <i class="material-icons color_blue">notifications</i>
+            </div>
+            <div *ngIf="request.status == 'ERROR'">
+              <i class="material-icons color_red">cancel</i>
+            </div>
+            <div *ngIf="request.status == 'DONE'">
+              <i class="material-icons color_green">check_circle_outline</i>
+            </div>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div>
+          <textarea [disabled]="true" [(ngModel)]=request.content></textarea>
+        </div>
+        <div>
+          <textarea [disabled]="true" [(ngModel)]=request.comment></textarea>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-tab>
   <mat-tab label="Подача заявки">
     <app-add-request></app-add-request>
   </mat-tab>
