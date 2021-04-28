@@ -1,0 +1,36 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.first-col{
+  width: 5%;
+}
+.style-col{
+  width: 19%;
+}
+
+a {
+  color: #1f3e94;
+}
+
+
+.material-icons.color_green {
+  color: #00FF00;
+}
+
+.material-icons.color_red {
+  color: #ff0000;
+}
+
+.material-icons.color_blue {
+  color: #0037ff;
+}
+
+.indent-top{
+  margin-top: 2%;
+}

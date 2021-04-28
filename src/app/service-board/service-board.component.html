@@ -9,7 +9,7 @@
       <mat-expansion-panel *ngFor="let request of requests, index as i">
         <mat-expansion-panel-header class="row">
           <mat-panel-title class="title">
-            Заявка {{i + 1}}
+            Заявка {{request.id}}
           </mat-panel-title>
           <mat-panel-description class="col-3">
             <div *ngIf="request.status == 'WAITING'">
@@ -38,5 +38,8 @@
   </mat-tab>
   <mat-tab label="Подача заявки">
     <app-add-request></app-add-request>
+  </mat-tab>
+  <mat-tab label="Обработка заявок">
+    <app-admin-request></app-admin-request>
   </mat-tab>
 </mat-tab-group>

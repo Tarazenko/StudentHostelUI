@@ -71,6 +71,8 @@ import { NewsComponent } from './news/news.component';
 import {NgxMatFileInputModule} from '@angular-material-components/file-input';
 import { ServiceBoardComponent } from './service-board/service-board.component';
 import { AddRequestComponent } from './service-board/add-request/add-request.component';
+import { AdminRequestComponent } from './service-board/admin-request/admin-request.component';
+import { RequestHandlingComponent } from './dialogs/request-handling/request-handling.component';
 
 
 @NgModule({
@@ -94,7 +96,9 @@ import { AddRequestComponent } from './service-board/add-request/add-request.com
     AddNewsComponent,
     NewsComponent,
     ServiceBoardComponent,
-    AddRequestComponent
+    AddRequestComponent,
+    AdminRequestComponent,
+    RequestHandlingComponent
   ],
   imports: [
     BrowserModule,

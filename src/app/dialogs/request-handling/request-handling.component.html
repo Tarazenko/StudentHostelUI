@@ -1,0 +1,31 @@
+<!--todo validation EMAIL и всего остального-->
+<h2 mat-dialog-title> Обработка заявки</h2>
+<div mat-dialog-content class="mat-typography">
+  <h4><strong>Комната:</strong> {{data.room}} </h4>
+  <h4><strong>От кого:</strong> {{data.user.name}}  {{data.user.surname}}</h4>
+  <h4><strong>Проблема:</strong></h4>
+  <p class="text">{{data.content}}</p>
+  <h4><strong>Статус:</strong></h4>
+  <section class="example-section" align="center">
+    <mat-radio-group [(ngModel)]="labelPosition">
+      <mat-radio-button class="radio-wrap" value="waiting">В ожидании</mat-radio-button>
+      <mat-radio-button class="radio-wrap" value="progress">В процессе</mat-radio-button>
+      <mat-radio-button class="radio-wrap" value="done">Сделано</mat-radio-button>
+      <mat-radio-button class="radio-wrap" value="error">Отклонена</mat-radio-button>
+    </mat-radio-group>
+  </section>
+  <h4><strong>Комментарий:</strong></h4>
+  <mat-form-field class="text-area">
+      <textarea rows="7" matInput #message
+                placeholder="Оставьте комментарий" maxlength="255" required [(ngModel)]="data.comment"></textarea>
+    <mat-hint align="end">{{message.value.length}} / 255</mat-hint>
+    <!--      <mat-error *ngIf="secondFormGroup.get('secondCtrl').hasError('required')">
+            Введите описание проблемы!
+          </mat-error>-->
+  </mat-form-field>
+</div>
+<div mat-dialog-actions align="center">
+  <button mat-button [mat-dialog-close]="1" (click)="updateRequest()">Обновить</button>
+  <button mat-button (click)="onNoClick()" tabindex="-1">Отмена</button>
+</div>
+
