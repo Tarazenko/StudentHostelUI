@@ -15,17 +15,18 @@
     </mat-radio-group>
   </section>
   <h4><strong>Комментарий:</strong></h4>
-  <mat-form-field class="text-area">
-      <textarea rows="7" matInput #message
+  <mat-form-field [formGroup]="formGroup" class="text-area">
+    <textarea rows="5" matInput #message formControlName="commentCtrl"
                 placeholder="Оставьте комментарий" maxlength="255" required [(ngModel)]="data.comment"></textarea>
     <mat-hint align="end">{{message.value.length}} / 255</mat-hint>
-    <!--      <mat-error *ngIf="secondFormGroup.get('secondCtrl').hasError('required')">
-            Введите описание проблемы!
-          </mat-error>-->
+    <mat-error *ngIf="formGroup.get('commentCtrl').hasError('required')">
+      Оставьте комментарий!
+    </mat-error>
   </mat-form-field>
 </div>
 <div mat-dialog-actions align="center">
-  <button mat-button [mat-dialog-close]="1" (click)="updateRequest()">Обновить</button>
+  <button mat-button [mat-dialog-close]="1" (click)="updateRequest()"
+          [disabled]="!formGroup.valid">Обновить</button>
   <button mat-button (click)="onNoClick()" tabindex="-1">Отмена</button>
 </div>
 

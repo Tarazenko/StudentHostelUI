@@ -11,7 +11,7 @@ import {User} from '../models/User';
 })
 export class ServiceBoardComponent implements OnInit {
 
-  requests: Request[];
+  requests: Request[] = [];
   user: User;
   error: string;
   /*= [{

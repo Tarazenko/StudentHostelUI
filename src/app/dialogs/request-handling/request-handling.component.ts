@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Request} from '../../models/Request';
 import {RequestService} from '../../_services/request.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
@@ -12,8 +13,10 @@ import {RequestService} from '../../_services/request.service';
 export class RequestHandlingComponent implements OnInit {
 
   labelPosition: string;
+  formGroup: FormGroup;
 
   constructor(public dialogRef: MatDialogRef<RequestHandlingComponent>,
+              private _formBuilder: FormBuilder,
               @Inject(MAT_DIALOG_DATA) public data: Request,
               private requestService: RequestService) {
     if (data.status === 'WAITING') {
@@ -28,7 +31,11 @@ export class RequestHandlingComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.formGroup = this._formBuilder.group({
+      commentCtrl: ['', [Validators.required]]
+    });
   }
+
   updateRequest(): void {
     if (this.labelPosition === 'waiting') {
       this.data.status = 'WAITING';
