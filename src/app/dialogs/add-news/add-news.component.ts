@@ -47,38 +47,31 @@ export class AddNewsComponent implements OnInit {
     });
   }
 
-  addNews(): void {
-    if (!this.fileControl.errors) {
-      this.upload();
-      console.log('File after subscribe - ', JSON.stringify(this.ifile));
-      if (this.ifile) {
-        this.news.file = this.ifile;
-        console.log('File from server - ', JSON.stringify(this.ifile));
-        this.newsService.addNews(this.news).subscribe({
-          next: data => {
-            console.log('News from server - ' + JSON.stringify(data));
-          },
-          error: error => {
-            this.errorMessage = error.message;
-            console.error('There was an error!', error);
-          }
-        });
-      }
-    }
-  }
-
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  async upload() {
+  addNews(): void {
     console.log('File errors ', this.fileControl.errors);
     console.log('File to upload - ', this.file.name);
     if (this.file) {
-      await this.uploadService.uploadFile(this.file).subscribe({
+        this.uploadService.uploadFile(this.file).subscribe({
           next: data => {
             this.ifile = data;
             console.log('Success upload file -' + JSON.stringify(this.ifile));
+            if (this.ifile) {
+              this.news.file = this.ifile;
+              console.log('File from server - ', JSON.stringify(this.ifile));
+              this.newsService.addNews(this.news).subscribe({
+                next: serverNews => {
+                  console.log('News from server - ' + JSON.stringify(serverNews));
+                },
+                error: error => {
+                  this.errorMessage = error.message;
+                  console.error('There was an error!', error);
+                }
+              });
+            }
           },
           error: error => {
             this.errorMessage = error.message;

@@ -15,6 +15,16 @@ mat-card-title{
   font-size: 15px;
 }
 
+.text-center{
+  a{
+    text-decoration: none;
+  }
+}
+
+.mat-card-image{
+  height: 200px;
+}
+
 @media screen and (min-width: 1000px) {
   mat-card {
     flex-basis: calc(25% - 2 * 10px);

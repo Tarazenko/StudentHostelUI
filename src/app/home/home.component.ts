@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
         console.log('Add news dialog was closed with adding.');
-        this.ngOnInit();
+        window.location.reload();
       }
     });
   }
