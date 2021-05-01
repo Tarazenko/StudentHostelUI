@@ -2,37 +2,25 @@
   <mat-tab label="Мои заявки">
     <div *ngIf="requests.length == 0">
       <mat-card>
-        Пока нет ни одной заявки
+        <h2>Пока нет ни одной заявки</h2>
       </mat-card>
     </div>
     <mat-accordion>
       <mat-expansion-panel *ngFor="let request of requests, index as i">
         <mat-expansion-panel-header class="row">
           <mat-panel-title class="title">
-            Заявка {{request.id}}
+            <strong>Заявка {{request.id}}</strong>
           </mat-panel-title>
           <mat-panel-description class="col-3">
-            <div *ngIf="request.status == 'WAITING'">
-              <i class="material-icons color_blue">query_builder</i>
-            </div>
-            <div *ngIf="request.status == 'IN_PROGRESS'">
-              <i class="material-icons color_blue">notifications</i>
-            </div>
-            <div *ngIf="request.status == 'ERROR'">
-              <i class="material-icons color_red">cancel</i>
-            </div>
-            <div *ngIf="request.status == 'DONE'">
-              <i class="material-icons color_green">check_circle_outline</i>
-            </div>
+              <i class="material-icons {{statuses.get(request.status)[1]}}">
+                {{statuses.get(request.status)[0]}}</i>
           </mat-panel-description>
         </mat-expansion-panel-header>
-
-        <div>
-          <textarea [disabled]="true" [(ngModel)]=request.content></textarea>
-        </div>
-        <div>
-          <textarea [disabled]="true" [(ngModel)]=request.comment></textarea>
-        </div>
+        <h4><strong>Проблема:</strong></h4>
+          <p class="text">{{request.content}}</p>
+        <h4><strong>Статус:</strong> {{statuses.get(request.status)[2]}} </h4>
+        <h4><strong>Комментарий:</strong></h4>
+        <p class="text">{{request.comment}}</p>
       </mat-expansion-panel>
     </mat-accordion>
   </mat-tab>

@@ -14,24 +14,15 @@ export class ServiceBoardComponent implements OnInit {
   requests: Request[] = [];
   user: User;
   error: string;
-  /*= [{
-    id: 1,
-    content: 'Не работает лампочка.',
-    comment: '05.04 c 8-10 прийдет электрик',
-    state: 'IN_PROGRESS',
-    room: 217
-  },
-    {
-      id: 1,
-      content: 'Не работает лампочка.',
-      comment: '05.04 c 8-10 прийдет электрик',
-      state: 'DONE',
-      room: 217
-    }];*/
+  statuses = new Map();
 
   constructor(private requestService: RequestService,
               private tokenService: TokenStorageService) {
     this.user =  <User> tokenService.getUser();
+    this.statuses.set('WAITING', ['query_builder', 'color_blue', 'В ожидании']);
+    this.statuses.set('IN_PROGRESS', ['notifications', 'color_blue', 'В процессе']);
+    this.statuses.set('ERROR', ['cancel', 'color_red', 'Отклонена']);
+    this.statuses.set('DONE', ['check_circle_outline', 'color_green', 'Завершено']);
   }
 
   ngOnInit(): void {
