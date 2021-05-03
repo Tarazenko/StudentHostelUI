@@ -73,6 +73,7 @@ import { ServiceBoardComponent } from './service-board/service-board.component';
 import { AddRequestComponent } from './service-board/add-request/add-request.component';
 import { AdminRequestComponent } from './service-board/admin-request/admin-request.component';
 import { RequestHandlingComponent } from './dialogs/request-handling/request-handling.component';
+import { AboutComponent } from './about/about.component';
 
 
 @NgModule({
@@ -98,7 +99,8 @@ import { RequestHandlingComponent } from './dialogs/request-handling/request-han
     ServiceBoardComponent,
     AddRequestComponent,
     AdminRequestComponent,
-    RequestHandlingComponent
+    RequestHandlingComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
