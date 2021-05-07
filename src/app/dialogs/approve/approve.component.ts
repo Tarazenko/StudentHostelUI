@@ -14,4 +14,8 @@ export class ApproveComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  fakeClick(): void {
+
+  }
 }
