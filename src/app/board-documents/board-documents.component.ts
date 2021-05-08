@@ -82,7 +82,7 @@ export class BoardDocumentsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
         console.log('Add document dialog was closed with adding.');
-        this.ngOnInit();
+        window.location.reload();
       }
     });
   }
