@@ -1,13 +1,17 @@
-<div class="container">
-  <!--todo validation EMAIL и всего остального-->
-  <h3 mat-dialog-title> Добавить категорию документа </h3>
-  <div mat-dialog-content>
-    <mat-form-field color="primary">
-      <input matInput placeholder="Название категории" [(ngModel)]="data.name">
-    </mat-form-field>
-  </div>
-  <div mat-dialog-actions align="center">
-    <button mat-button [mat-dialog-close]="1" (click)="addCategory()">Добавить</button>
-    <button mat-button (click)="onNoClick()" tabindex="-1">Отмена</button>
-  </div>
+<!--todo validation EMAIL и всего остального-->
+<h3 mat-dialog-title> Добавить категорию документа </h3>
+<div mat-dialog-content>
+  <mat-form-field [formGroup]="formGroup" color="primary" class="category-input">
+    <input matInput placeholder="Название категории"
+           formControlName="categoryCtrl" required maxlength="35" #message [(ngModel)]="data.name">
+    <mat-hint align="end">{{message.value.length}} / 35</mat-hint>
+    <mat-error *ngIf="formGroup.get('categoryCtrl').hasError('required')">
+      Введите название категории!
+    </mat-error>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions align="center">
+  <button mat-button [mat-dialog-close]="1" (click)="addCategory()"
+    [disabled]="!formGroup.valid">Добавить</button>
+  <button mat-button (click)="onNoClick()" tabindex="-1">Отмена</button>
 </div>

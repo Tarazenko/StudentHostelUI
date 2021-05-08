@@ -72,7 +72,7 @@ export class BoardDocumentsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
         console.log('The dialog was closed');
-        this.ngOnInit();
+        window.location.reload();
       }
     });
   }

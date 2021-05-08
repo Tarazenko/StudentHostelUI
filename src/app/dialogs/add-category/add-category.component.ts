@@ -1,6 +1,6 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {FormControl, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Category} from '../../models/Category';
 import {DocumentService} from '../../_services/document.service';
 
@@ -9,27 +9,30 @@ import {DocumentService} from '../../_services/document.service';
   templateUrl: './add-category.component.html',
   styleUrls: ['./add-category.component.css']
 })
-export class AddCategoryComponent {
+export class AddCategoryComponent implements OnInit {
 
-  category: Category;
+  formGroup: FormGroup;
 
   constructor(public dialogRef: MatDialogRef<AddCategoryComponent>,
               @Inject(MAT_DIALOG_DATA) public data: Category,
-              public categoryService: DocumentService) { }
+              public categoryService: DocumentService,
+              private _formBuilder: FormBuilder) { }
 
   formControl = new FormControl('', [
     Validators.required,
     Validators.email
   ]);
 
+
+  ngOnInit(): void {
+    this.formGroup = this._formBuilder.group({
+      categoryCtrl: ['', [Validators.required]]
+    });
+  }
+
   getErrorMessage() {
     return this.formControl.hasError('required') ? 'Обязательное поле' : '';
   }
-
-  submit() {
-    // emppty stuff
-  }
-
 
   onNoClick(): void {
     this.dialogRef.close();
