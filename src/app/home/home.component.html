@@ -1,26 +1,30 @@
-<div class="admin-button" *ngIf="show">
-  <button mat-raised-button color="primary" (click)="addNews()">Добавить новость</button>
-</div>
+<div>
+  <div class="three"><h1>Наши новости и события</h1></div>
 
-<div class="container">
-  <mat-card *ngFor="let item of news">
-    <img mat-card-image src="{{item.file.url}}" alt="picture">
-    <mat-card-title class="text-center">
-      <a href="{{baseNewsUrl + item.id}}">{{item.title}}</a>
-    </mat-card-title>
-    <mat-card-content class="wrapper">
-      {{item.preview}}
-    </mat-card-content>
-    <mat-card-actions align="end">
-      <div *ngIf="!show">
-         <br>
-      </div>
-      <div *ngIf="show">
-        <button mat-icon-button color="warn" (click)="deleteNews(item.id, item.title)">
-          <mat-icon aria-label="Delete">delete</mat-icon>
-        </button>
-      </div>
-    </mat-card-actions>
-  </mat-card>
-</div>
+  <div class="admin-button" *ngIf="show">
+    <button mat-raised-button color="primary" (click)="addNews()">Добавить новость</button>
+  </div>
 
+  <div class="container">
+    <mat-card *ngFor="let item of news">
+      <img mat-card-image src="{{item.file.url}}" alt="picture">
+      <mat-card-title class="text-center">
+        <a href="{{baseNewsUrl + item.id}}">{{item.title}}</a>
+      </mat-card-title>
+      <mat-card-content class="wrapper">
+        {{item.preview}}
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <div *ngIf="!show">
+          <br>
+        </div>
+        <div *ngIf="show">
+          <button mat-icon-button color="warn" (click)="deleteNews(item.id, item.title)">
+            <mat-icon aria-label="Delete">delete</mat-icon>
+          </button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+</div>
