@@ -1,37 +1,58 @@
-<div class="container">
-  <!--todo validation EMAIL и всего остального-->
-  <h3 mat-dialog-title> Добавить новость </h3>
-  <div mat-dialog-content>
-      <mat-form-field>
-        <ngx-mat-file-input [formControl]="fileControl" [multiple]="false" [accept]="'.jpg'">
-           <mat-icon ngxMatFileInputIcon>folder</mat-icon>
-        </ngx-mat-file-input>
-        <mat-error *ngIf="fileControl.hasError('required')">
-          Please select a file
-        </mat-error>
-        <mat-error *ngIf="fileControl.hasError('maxSize')">
-          The total size must not exceed size
-        </mat-error>
-      </mat-form-field>
+<!--todo Расширить окно диалога для редактирования основного текста новости-->
 
-    <div mat-dialog-content>
-      <mat-form-field color="primary">
-        <input matInput placeholder="Заголовок" [(ngModel)]="news.title">
-      </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field color="primary">
-        <input matInput placeholder="Описание" [(ngModel)]="news.preview">
-      </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field color="primary" class="news-field">
-        <textarea matInput placeholder="Основной текст" [(ngModel)]="news.text"></textarea>
-      </mat-form-field>
-    </div>
+<h3 mat-dialog-title> Добавить новость </h3>
+<div mat-dialog-content [formGroup]="formGroup">
+
+  <div>
+    <mat-form-field>
+      <ngx-mat-file-input formControlName="fileControl"
+                          placeholder="Выберите файл" [multiple]="false" [accept]="'image/*'" #file>
+        <mat-icon ngxMatFileInputIcon>folder</mat-icon>
+      </ngx-mat-file-input>
+      <mat-error *ngIf="formGroup.get('fileControl').hasError('required')">
+        Пожалуйста выберите файл
+      </mat-error>
+      <mat-error *ngIf="formGroup.get('fileControl').hasError('maxSize')">
+        Превышен максимальный размер файла
+      </mat-error>
+    </mat-form-field>
   </div>
-  <div mat-dialog-actions align="center">
-    <button mat-button [mat-dialog-close]="1" (click)="addNews()" [disabled]="shouldDisable">Добавить</button>
-    <button mat-button (click)="onNoClick()" tabindex="-1">Отмена</button>
+
+  <div>
+    <mat-form-field color="primary">
+      <input matInput placeholder="Заголовок"
+             [(ngModel)]="news.title" formControlName="titleControl"
+             maxlength="50" required #titleMessage>
+      <mat-hint align="end">{{titleMessage.value.length}} / 50</mat-hint>
+      <mat-error *ngIf="formGroup.get('titleControl').hasError('required')">
+        Пожалуйста введите заголовок
+      </mat-error>
+    </mat-form-field>
   </div>
+
+  <div>
+    <mat-form-field color="primary">
+      <input matInput placeholder="Описание" [(ngModel)]="news.preview"
+             formControlName="previewControl" maxlength="100" required #previewMessage>
+      <mat-hint align="end">{{previewMessage.value.length}} / 100</mat-hint>
+      <mat-error *ngIf="formGroup.get('previewControl').hasError('required')">
+        Пожалуйста введите описание
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field color="primary" class="news-field">
+        <textarea matInput placeholder="Основной текст" [(ngModel)]="news.text"
+                  formControlName="textControl" required></textarea>
+      <mat-error *ngIf="formGroup.get('previewControl').hasError('required')">
+        Пожалуйста введите содержимое новости
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+</div>
+<div mat-dialog-actions align="center">
+  <button mat-button [mat-dialog-close]="1" (click)="addNews()" [disabled]="!formGroup.valid">Добавить</button>
+  <button mat-button (click)="onNoClick()" tabindex="-1">Отмена</button>
 </div>

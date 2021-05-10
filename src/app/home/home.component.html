@@ -8,13 +8,18 @@
     <mat-card-title class="text-center">
       <a href="{{baseNewsUrl + item.id}}">{{item.title}}</a>
     </mat-card-title>
-    <mat-card-content>
+    <mat-card-content class="wrapper">
       {{item.preview}}
     </mat-card-content>
-    <mat-card-actions align="end" *ngIf="show">
-      <button mat-icon-button color="warn" (click)="deleteNews(item.id, item.title)">
-        <mat-icon aria-label="Delete">delete</mat-icon>
-      </button>
+    <mat-card-actions align="end">
+      <div *ngIf="!show">
+         <br>
+      </div>
+      <div *ngIf="show">
+        <button mat-icon-button color="warn" (click)="deleteNews(item.id, item.title)">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+      </div>
     </mat-card-actions>
   </mat-card>
 </div>

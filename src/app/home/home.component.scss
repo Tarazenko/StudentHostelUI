@@ -16,13 +16,20 @@ mat-card-title{
 }
 
 .text-center{
+  display: grid;
+  grid-auto-rows: 50px;
   a{
     text-decoration: none;
   }
 }
 
 .mat-card-image{
-  height: 200px;
+  height: 150px;
+}
+
+.wrapper {
+  display: grid;
+  grid-auto-rows: 50px;
 }
 
 @media screen and (min-width: 1000px) {

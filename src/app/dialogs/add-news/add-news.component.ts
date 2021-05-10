@@ -4,9 +4,9 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {UploadFilesService} from '../../_services/upload-files.service';
 import {News} from '../../models/News';
 import {NewsService} from '../../_services/news.service';
-import {FormControl, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MaxSizeValidator} from '@angular-material-components/file-input';
-import {async} from 'rxjs';
+
 
 @Component({
   selector: 'app-add-news',
@@ -27,23 +27,43 @@ export class AddNewsComponent implements OnInit {
   fileControl: FormControl;
   news: News = {preview: '', text: '', title: ''};
 
+  formGroup: FormGroup;
+
   constructor(public dialogRef: MatDialogRef<AddNewsComponent>,
               @Inject(MAT_DIALOG_DATA) public data: News,
               public uploadService: UploadFilesService,
-              public newsService: NewsService
+              public newsService: NewsService,
+              private _formBuilder: FormBuilder
   ) {
-    this.fileControl = new FormControl(this.file, [
+/*    this.fileControl = new FormControl(this.file, [
       Validators.required,
       MaxSizeValidator(this.maxSize * 1024 * 1024)
-    ]);
+    ]);*/
   }
 
   ngOnInit(): void {
-     this.fileControl.valueChanges.subscribe((file: any) => {
+/*     this.fileControl.valueChanges.subscribe((file: any) => {
       this.file = file;
       if (!this.fileControl.errors) {
         this.shouldDisable = false;
       }
+    });*/
+    this.formGroup = this._formBuilder.group({
+      fileControl: [this.file, [
+        Validators.required,
+        MaxSizeValidator(this.maxSize * 1024 * 1024)]],
+      titleControl: ['', [
+        Validators.required
+      ]],
+      previewControl: ['', [
+        Validators.required
+      ]],
+      textControl: ['', [
+        Validators.required
+      ]]
+    });
+    this.formGroup.get('fileControl').valueChanges.subscribe((file: any) => {
+      this.file = file;
     });
   }
 
@@ -52,7 +72,6 @@ export class AddNewsComponent implements OnInit {
   }
 
   addNews(): void {
-    console.log('File errors ', this.fileControl.errors);
     console.log('File to upload - ', this.file.name);
     if (this.file) {
         this.uploadService.uploadFile(this.file).subscribe({
@@ -79,7 +98,6 @@ export class AddNewsComponent implements OnInit {
           }
         }
       );
-      console.log('File after subscribe - ', JSON.stringify(this.ifile));
     }
   }
 }

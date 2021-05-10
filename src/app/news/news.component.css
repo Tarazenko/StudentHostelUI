@@ -12,6 +12,11 @@
   font-size: 14px;
 }
 
+.image-scale {
+  max-width: 800px;
+  max-height: 800px;
+}
+
 .image-wrapper {
   width: 100%;
   display: flex;

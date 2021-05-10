@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit {
   }
 
   public deleteNews(id: number, title: string) {
-    const message = 'Вы уверены чт хотите удалить новость - ' + title;
+    const message = 'Вы уверены что хотите удалить новость - ' + title;
     const dialogRef = this.dialog.open(ApproveComponent, {data: message});
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
