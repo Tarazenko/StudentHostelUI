@@ -2,12 +2,18 @@
   <!--todo validation EMAIL и всего остального-->
   <h3 mat-dialog-title> Редактирование категории "{{categoryData.name}}"</h3>
   <div mat-dialog-content>
-    <mat-form-field color="primary">
-      <input matInput placeholder= "Введите новое название" [(ngModel)]="category.name">
+    <mat-form-field [formGroup]="formGroup" color="primary" style="width: 100%;">
+      <input matInput placeholder="Введите новое название"
+             formControlName="categoryCtrl" required maxlength="35" #message [(ngModel)]="category.name">
+      <mat-hint align="end">{{message.value.length}} / 35</mat-hint>
+      <mat-error *ngIf="formGroup.get('categoryCtrl').hasError('required')">
+        Введите название категории!
+      </mat-error>
     </mat-form-field>
   </div>
   <div mat-dialog-actions align="center">
-    <button mat-button [mat-dialog-close]="1" (click)="updateCategory()">Обновить</button>
+    <button mat-button [mat-dialog-close]="1" (click)="updateCategory()"
+            [disabled]="!formGroup.valid">Обновить</button>
     <button mat-button (click)="onNoClick()" tabindex="-1">Отмена</button>
   </div>
 </div>

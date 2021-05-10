@@ -18,20 +18,10 @@ export class AddCategoryComponent implements OnInit {
               public categoryService: DocumentService,
               private _formBuilder: FormBuilder) { }
 
-  formControl = new FormControl('', [
-    Validators.required,
-    Validators.email
-  ]);
-
-
   ngOnInit(): void {
     this.formGroup = this._formBuilder.group({
       categoryCtrl: ['', [Validators.required]]
     });
-  }
-
-  getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Обязательное поле' : '';
   }
 
   onNoClick(): void {

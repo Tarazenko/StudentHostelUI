@@ -7,6 +7,7 @@ import {AddDocumentComponent} from '../dialogs/add-document/add-document.compone
 import {Document} from '../models/Document';
 import {ApproveComponent} from '../dialogs/approve/approve.component';
 import {TokenStorageService} from '../_services/token-storage.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 const DELETE_CATEGORY_MESSAGE = 'Вы уверены что хотите удалить категорию ';
 const DELETE_DOCUMENT_MESSAGE = 'Вы уверены что хотите удалить документ ';
@@ -141,9 +142,15 @@ export class UpdateCategoryComponent {
     name: this.categoryData.name
   };
 
+  formGroup: FormGroup;
+
   constructor(public dialogRef: MatDialogRef<UpdateCategoryComponent>,
               @Inject(MAT_DIALOG_DATA) public categoryData: Category,
-              public categoryService: DocumentService) {
+              public categoryService: DocumentService,
+              private _formBuilder: FormBuilder) {
+    this.formGroup = this._formBuilder.group({
+      categoryCtrl: ['', [Validators.required]]
+    });
   }
 
   onNoClick(): void {
