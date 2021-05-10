@@ -1,14 +1,15 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {DocumentService} from '../_services/document.service';
 import {Category} from '../models/Category';
-import {UserService} from '../_services/user.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {ProfileEditComponent} from '../dialogs/profile-edit/profile-edit.component';
 import {AddCategoryComponent} from '../dialogs/add-category/add-category.component';
 import {AddDocumentComponent} from '../dialogs/add-document/add-document.component';
 import {Document} from '../models/Document';
 import {ApproveComponent} from '../dialogs/approve/approve.component';
 import {TokenStorageService} from '../_services/token-storage.service';
+
+const DELETE_CATEGORY_MESSAGE = 'Вы уверены что хотите удалить категорию ';
+const DELETE_DOCUMENT_MESSAGE = 'Вы уверены что хотите удалить документ ';
 
 export interface DragDropListItem {
   id: string;
@@ -31,8 +32,8 @@ export class BoardDocumentsComponent implements OnInit {
   show = false;
 
   clickButton = false;
-  documentMessage = 'Вы уверены что хотите удалить документ ';
-  categoryMessage = 'Вы уверены что хотите удалить категорию ';
+  documentMessage: string;
+  categoryMessage: string;
 
   constructor(public documentService: DocumentService, public dialog: MatDialog,
               private tokenStorageService: TokenStorageService) {
@@ -88,7 +89,7 @@ export class BoardDocumentsComponent implements OnInit {
   }
 
   deleteCategory(id: number, name: string) {
-    this.categoryMessage += name + '?' + ' Все документы в категории будут удалены!';
+    this.categoryMessage = DELETE_CATEGORY_MESSAGE + '"' + name + '"' + '?' + ' Все документы в категории будут удалены!';
     this.clickButton = true;
     const dialogRef = this.dialog.open(ApproveComponent, {data: this.categoryMessage});
     dialogRef.afterClosed().subscribe(result => {
@@ -116,7 +117,7 @@ export class BoardDocumentsComponent implements OnInit {
   }
 
   deleteDocument(id: number, name: string) {
-    this.documentMessage += name + '?';
+    this.documentMessage = DELETE_DOCUMENT_MESSAGE + '"' + name + '"' + '?';
     const dialogRef = this.dialog.open(ApproveComponent, {data: this.documentMessage});
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
