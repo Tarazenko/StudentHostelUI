@@ -1,48 +1,51 @@
-<div class="container">
-  <!--todo PASSWORD validation EMAIL и всего остального-->
 
-  <h3 mat-dialog-title> Изменение: {{data.username}}</h3>
+<h3 mat-dialog-title> Изменение: {{data.username}}</h3>
 
-  <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+<form class="wrap" [formGroup]="formGroup">
 
-    <div class="form">
-      <mat-form-field color="accent">
-        <input matInput #input class="form-control" placeholder="Фамилия" [(ngModel)]="data.surname" name="surname" required >
-        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-      </mat-form-field>
-    </div>
+  <div>
+    <mat-form-field class = "field" color="accent">
+      <input matInput placeholder="Фамилия" formControlName="nameControl"
+             [(ngModel)]="data.surname" required>
+      <mat-error *ngIf="formGroup.get('nameControl').hasError('required')">
+        Пожалуйста введите имя
+      </mat-error>
+    </mat-form-field>
+  </div>
 
-    <div class="form">
-      <mat-form-field color="accent">
-        <input matInput #input class="form-control" placeholder="Имя" [(ngModel)]="data.name" name="name" required >
-        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-      </mat-form-field>
-    </div>
-    <!--Contains mat-hint for characters count and has maxLengt set-->
-<!--    <div class="form">
-      <mat-form-field color="accent">
-        <input matInput #inputstate class="form-control" placeholder="State" [(ngModel)]="data.state" name="state" [minLength]="2" maxlength="10" required >
-        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-        &lt;!&ndash;<mat-hint align="end">{{inputstate.value?.length || 0}}/10</mat-hint>&ndash;&gt;
-      </mat-form-field>
-    </div>-->
+  <div>
+    <mat-form-field  class = "field" color="accent">
+      <input matInput formControlName="surnameControl" placeholder="Имя" [(ngModel)]="data.name" required>
+      <mat-error *ngIf="formGroup.get('surnameControl').hasError('required')">
+        Пожалуйста введите фамилию
+      </mat-error>
+    </mat-form-field>
+  </div>
 
-    <div class="form">
-      <mat-form-field color="accent">
-        <input matInput placeholder="Отчество" [(ngModel)]="data.patronymic" name="patronymic">
-      </mat-form-field>
-    </div>
+  <div>
+    <mat-form-field class = "field" color="accent">
+      <input matInput formControlName="patronymicControl"
+             placeholder="Отчество" [(ngModel)]="data.patronymic">
+    </mat-form-field>
+  </div>
 
-    <div class="form">
-      <mat-form-field color="accent">
-        <input matInput #input class="form-control" placeholder="Email" [(ngModel)]="data.email" name="email" email required >
-        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-      </mat-form-field>
-    </div>
-
-    <div mat-dialog-actions>
-      <button mat-button [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="stopEdit()">Save</button>
-      <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
-    </div>
-  </form>
-</div>
+  <div>
+    <mat-form-field class = "field" color="accent">
+      <input matInput formControlName="emailControl" placeholder="Email"
+             [(ngModel)]="data.email" email required>
+      <mat-error *ngIf="formGroup.get('emailControl').hasError('required')">
+        Пожалуйста введите email
+      </mat-error>
+      <mat-error *ngIf="formGroup.get('emailControl').hasError('email')">
+        Некорректный email
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <mat-error *ngIf="error!=''">
+    {{error}}
+  </mat-error>
+  <div mat-dialog-actions align="center" >
+    <button mat-button [disabled]="!formGroup.valid" (click)="stopEdit()">Сохранить</button>
+    <button mat-button (click)="onNoClick()" tabindex="-1">Отмена</button>
+  </div>
+</form>

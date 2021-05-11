@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from '../models/User';
 import {UserService} from '../_services/user.service';
-import {AdminEditDialogComponent} from '../dialogs/admin-edit/admin-edit.dialog.component';
 import {ProfileEditComponent} from '../dialogs/profile-edit/profile-edit.component';
 import {MatDialog} from '@angular/material/dialog';
 
@@ -40,7 +39,9 @@ export class ProfileComponent implements OnInit {
 
   startEdit(id: number, username: string, name: string, surname: string, patronymic: string, email: string) {
     const dialogRef = this.dialog.open(ProfileEditComponent, {
-      data: {id: id, username: username, name: name, surname: surname, patronymic: patronymic, email: email}
+      data: {id: id, username: username, name: name, surname: surname, patronymic: patronymic, email: email},
+      height: '60%',
+      width: '20%',
     });
 
     dialogRef.afterClosed().subscribe(result => {
