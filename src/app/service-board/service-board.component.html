@@ -27,7 +27,7 @@
   <mat-tab label="Подача заявки">
     <app-add-request></app-add-request>
   </mat-tab>
-  <mat-tab label="Обработка заявок">
+  <mat-tab label="Обработка заявок" *ngIf="show">
     <app-admin-request></app-admin-request>
   </mat-tab>
 </mat-tab-group>
