@@ -30,3 +30,17 @@ label {
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
+
+.wrap{
+  width: 100%;
+  height: 80%;
+}
+
+.field{
+  width: 100%;
+}
+
+.button-margin{
+  width: 100%;
+  text-align: center;
+}

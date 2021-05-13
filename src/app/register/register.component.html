@@ -5,144 +5,83 @@
     <img
       id="profile-img"
       src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-      class="profile-img-card"
-    />
-    <form
-      *ngIf="!isSuccessful"
-      name="form"
-      (ngSubmit)="f.form.valid && onSubmit()"
-      #f="ngForm"
-      novalidate
-    >
-      <div class="form-group">
-        <input
-          placeholder="Логин"
-          type="text"
-          class="form-control"
-          name="username"
-          [(ngModel)]="form.username"
-          required
-          minlength="3"
-          maxlength="20"
-          #username="ngModel"
-        />
-        <div class="alert-danger" *ngIf="username.errors && f.submitted">
-          <div *ngIf="username.errors.required">Введите логин</div>
-          <div *ngIf="username.errors.minlength">
-            Логин должен сожержать как минимум 3 символа
-          </div>
-          <div *ngIf="username.errors.maxlength">
-            Логин должен быть не более 20 символов
-          </div>
-        </div>
+      class="profile-img-card"/>
+    <form *ngIf="!isSuccessful" class="wrap" [formGroup]="formGroup">
+      <div>
+        <mat-form-field class="field" color="primary">
+          <input matInput placeholder="Логин" formControlName="usernameControl"
+                 [(ngModel)]="user.username" required>
+          <mat-error *ngIf="formGroup.get('usernameControl').hasError('required')">
+            Пожалуйста введите логин
+          </mat-error>
+          <mat-error *ngIf="formGroup.get('usernameControl').hasError('exist')">
+            {{errorMessage}}
+          </mat-error>
+        </mat-form-field>
       </div>
-      <div class="form-group">
-        <input
-          placeholder="Фамилия"
-          type="text"
-          class="form-control"
-          name="username"
-          [(ngModel)]="form.surname"
-          minlength="3"
-          maxlength="20"
-          #surname="ngModel"
-        />
-        <div class="alert-danger" *ngIf="surname.errors && f.submitted">
-          <div *ngIf="surname.errors.minlength">
-            Фамилия должена сожержать как минимум 3 символа
-          </div>
-          <div *ngIf="surname.errors.maxlength">
-            Фамилия должена содержать не более 20 символов
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <input
-          placeholder="Имя"
-          type="text"
-          class="form-control"
-          name="Имя"
-          [(ngModel)]="form.name"
-          minlength="3"
-          maxlength="20"
-          #name="ngModel"
-        />
-        <div class="alert-danger" *ngIf="name.errors && f.submitted">
-          <div *ngIf="name.errors.minlength">
-            Имя должено сожержать как минимум 3 символа
-          </div>
-          <div *ngIf="name.errors.maxlength">
-            Имя должено содержать не более 20 символов
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <input
-          placeholder="Отчество"
-          type="text"
-          class="form-control"
-          name="username"
-          [(ngModel)]="form.patronymic"
-          minlength="3"
-          maxlength="20"
-          #patronymic="ngModel"
-        />
-        <div class="alert-danger" *ngIf="patronymic.errors && f.submitted">
-          <div *ngIf="patronymic.errors.minlength">
-            Отчество должено сожержать как минимум 3 символа
-          </div>
-          <div *ngIf="patronymic.errors.maxlength">
-            Отчество должено быть не более 20 символов
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <input
-          placeholder="Почта"
-          type="email"
-          class="form-control"
-          name="email"
-          [(ngModel)]="form.email"
-          required
-          email
-          #email="ngModel"
-        />
-        <div class="alert-danger" *ngIf="email.errors && f.submitted">
-          <div *ngIf="email.errors.required">Введите электронный адрес</div>
-          <div *ngIf="email.errors.email">
-            Неверный электронный адрес
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <input
-          placeholder="Пароль"
-          type="password"
-          class="form-control"
-          name="password"
-          [(ngModel)]="form.password"
-          required
-          minlength="6"
-          #password="ngModel"
-        />
-        <div class="alert-danger" *ngIf="password.errors && f.submitted">
-          <div *ngIf="password.errors.required">Введите пароль</div>
-          <div *ngIf="password.errors.minlength">
-            Пароль должен содержать минимум 6 символов
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <button class="btn btn-primary btn-block">Зарегистрироваться</button>
+      <div>
+        <mat-form-field class="field" color="primary">
+          <input matInput placeholder="Фамилия" formControlName="surnameControl"
+                 [(ngModel)]="user.surname" required>
+          <mat-error *ngIf="formGroup.get('surnameControl').hasError('required')">
+            Пожалуйста введите фамилию
+          </mat-error>
+        </mat-form-field>
       </div>
 
-      <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
-        Ошибка регистрации!<br/>{{ errorMessage }}
+      <div>
+        <mat-form-field class="field" color="primary">
+          <input matInput formControlName="nameControl" placeholder="Имя" [(ngModel)]="user.name" required>
+          <mat-error *ngIf="formGroup.get('nameControl').hasError('required')">
+            Пожалуйста введите имя
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="field" color="primary">
+          <input matInput formControlName="patronymicControl"
+                 placeholder="Отчество" [(ngModel)]="user.patronymic">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="field" color="primary">
+          <input matInput formControlName="emailControl" placeholder="Email"
+                 [(ngModel)]="user.email" email required>
+          <mat-error *ngIf="formGroup.get('emailControl').hasError('required')">
+            Пожалуйста введите email
+          </mat-error>
+          <mat-error *ngIf="formGroup.get('emailControl').hasError('email')">
+            Некорректный email
+          </mat-error>
+          <mat-error *ngIf="formGroup.get('emailControl').hasError('exist')">
+            {{errorMessage}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="field" color="primary">
+          <input matInput type="password"
+                 formControlName="passwordControl" placeholder="Пароль" [(ngModel)]="user.password" required>
+          <mat-error *ngIf="formGroup.get('passwordControl').hasError('required')">
+            Пожалуйста введите пароль
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <mat-error *ngIf="errorMessage.includes('Сервер')">
+        {{errorMessage}}
+      </mat-error>
+
+      <div class="button-margin">
+        <button mat-flat-button color="primary" [disabled]="!formGroup.valid" (click)="stopEdit()">
+          Зарегистрироваться
+        </button>
       </div>
     </form>
 
     <div class="alert alert-success" *ngIf="isSuccessful">
       Вы успешно зарегистрированы!
     </div>
+
   </div>
 </div>
