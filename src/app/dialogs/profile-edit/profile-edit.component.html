@@ -2,9 +2,8 @@
 <h3 mat-dialog-title> Изменение: {{data.username}}</h3>
 
 <form class="wrap" [formGroup]="formGroup">
-
   <div>
-    <mat-form-field class = "field" color="accent">
+    <mat-form-field class = "field" color="primary">
       <input matInput placeholder="Фамилия" formControlName="nameControl"
              [(ngModel)]="data.surname" required>
       <mat-error *ngIf="formGroup.get('nameControl').hasError('required')">
@@ -14,7 +13,7 @@
   </div>
 
   <div>
-    <mat-form-field  class = "field" color="accent">
+    <mat-form-field  class = "field" color="primary">
       <input matInput formControlName="surnameControl" placeholder="Имя" [(ngModel)]="data.name" required>
       <mat-error *ngIf="formGroup.get('surnameControl').hasError('required')">
         Пожалуйста введите фамилию
@@ -23,14 +22,14 @@
   </div>
 
   <div>
-    <mat-form-field class = "field" color="accent">
+    <mat-form-field class = "field" color="primary">
       <input matInput formControlName="patronymicControl"
              placeholder="Отчество" [(ngModel)]="data.patronymic">
     </mat-form-field>
   </div>
 
   <div>
-    <mat-form-field class = "field" color="accent">
+    <mat-form-field class = "field" color="primary">
       <input matInput formControlName="emailControl" placeholder="Email"
              [(ngModel)]="data.email" email required>
       <mat-error *ngIf="formGroup.get('emailControl').hasError('required')">
