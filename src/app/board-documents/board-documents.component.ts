@@ -80,7 +80,11 @@ export class BoardDocumentsComponent implements OnInit {
   }
 
   addDocument() {
-    const dialogRef = this.dialog.open(AddDocumentComponent, {data: this.categories});
+    const dialogRef = this.dialog.open(AddDocumentComponent, {
+      data: this.categories,
+      height: '55%',
+      width: '20%'
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
         console.log('Add document dialog was closed with adding.');
