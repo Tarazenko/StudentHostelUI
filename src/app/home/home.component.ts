@@ -48,7 +48,10 @@ export class HomeComponent implements OnInit {
   }
 
   public addNews(): void {
-    const dialogRef = this.dialog.open(AddNewsComponent, {});
+    const dialogRef = this.dialog.open(AddNewsComponent, {
+      height: '90%',
+      width: '100%'
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
         console.log('Add news dialog was closed with adding.');

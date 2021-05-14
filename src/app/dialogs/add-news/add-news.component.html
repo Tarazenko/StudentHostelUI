@@ -1,8 +1,5 @@
-<!--todo Расширить окно диалога для редактирования основного текста новости-->
-
 <h3 mat-dialog-title> Добавить новость </h3>
-<div mat-dialog-content [formGroup]="formGroup">
-
+<form class="wrap" [formGroup]="formGroup">
   <div>
     <mat-form-field>
       <ngx-mat-file-input formControlName="fileControl"
@@ -44,14 +41,16 @@
   <div>
     <mat-form-field color="primary" class="news-field">
         <textarea matInput placeholder="Основной текст" [(ngModel)]="news.text"
-                  formControlName="textControl" required></textarea>
+                  formControlName="textControl"
+                  class="text-area-wrap"
+                  required></textarea>
       <mat-error *ngIf="formGroup.get('previewControl').hasError('required')">
         Пожалуйста введите содержимое новости
       </mat-error>
     </mat-form-field>
   </div>
 
-</div>
+</form>
 <div mat-dialog-actions align="center">
   <button mat-button [mat-dialog-close]="1" (click)="addNews()" [disabled]="!formGroup.valid">Добавить</button>
   <button mat-button (click)="onNoClick()" tabindex="-1">Отмена</button>
