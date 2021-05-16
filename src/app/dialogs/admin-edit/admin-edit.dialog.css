@@ -10,9 +10,9 @@
 .example-margin {
   margin: 0 10px;
 }
-.example-section {
+.section {
   display: flex;
   align-content: center;
   align-items: center;
-  height: 60px;
+  height: 100px;
 }
