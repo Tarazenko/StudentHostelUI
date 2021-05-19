@@ -55,7 +55,7 @@ export class HomeComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
         console.log('Add news dialog was closed with adding.');
-        window.location.reload();
+        setTimeout(() => { window.location.reload(); }, 500);
       }
     });
   }

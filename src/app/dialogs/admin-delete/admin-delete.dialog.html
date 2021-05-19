@@ -12,7 +12,7 @@
   </div>
 
   <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()" tabindex="-1">Отмена</button>
-    <button mat-button [mat-dialog-close]="1" (click)="confirmDelete(data.id)">Удалить</button>
+    <button mat-button (click)="onNoClick()">Отмена</button>
+    <button mat-button (click)="confirmDelete(data.id)" [mat-dialog-close]="1">Удалить</button>
   </div>
 </div>

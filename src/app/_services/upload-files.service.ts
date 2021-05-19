@@ -19,7 +19,7 @@ export class UploadFilesService {
 
     formData.append('file', file);
     console.log(file);
-    const req = new HttpRequest('POST', `${this.baseUrl}/upload`, formData, {
+    const req = new HttpRequest('POST', `${this.baseUrl}/files/upload`, formData, {
       reportProgress: true,
       responseType: 'json'
     });
@@ -34,6 +34,6 @@ export class UploadFilesService {
   uploadFile(file: File): Observable<any> {
     const formData: FormData = new FormData();
     formData.append('file', file);
-    return this.http.post(this.baseUrl + '/upload', formData);
+    return this.http.post(this.baseUrl + '/files/upload', formData);
   }
 }
