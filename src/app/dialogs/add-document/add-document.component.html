@@ -3,7 +3,8 @@
 <form class = "wrap" [formGroup]="formGroup">
   <div>
     <mat-form-field class = "field">
-      <ngx-mat-file-input formControlName="fileControl" [multiple]="false" [accept]="accept" #file>
+      <ngx-mat-file-input formControlName="fileControl" placeholder="Выберите файл"
+                          [multiple]="false" [accept]="accept" #file>
         <mat-icon ngxMatFileInputIcon>folder</mat-icon>
       </ngx-mat-file-input>
       <mat-error *ngIf="formGroup.get('fileControl').hasError('required')">
