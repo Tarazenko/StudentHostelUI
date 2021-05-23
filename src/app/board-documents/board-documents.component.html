@@ -1,8 +1,8 @@
+<div class="three"><h1>Документы</h1></div>
 <div class="center" *ngIf="show">
   <button mat-raised-button color="primary" (click)="addCategory()">Добавить категорию</button>
   <button mat-raised-button color="primary" (click)="addDocument()" style="margin-left: 10px">Добавить документ</button>
 </div>
-
 <div class="center">
   <mat-accordion>
     <mat-expansion-panel *ngFor="let category of categories" [disabled]="clickButton" (click)="clickButton=false">
