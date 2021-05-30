@@ -8,8 +8,6 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {UserService} from '../../_services/user.service';
 import {MatDialog} from '@angular/material/dialog';
-import {AdminEditDialogComponent} from '../../dialogs/admin-edit/admin-edit.dialog.component';
-import {AdminDeleteDialogComponent} from '../../dialogs/admin-delete/admin-delete.dialog.component';
 import {UserData} from '../../board-admin/board-admin.component';
 import {RequestHandlingComponent} from '../../dialogs/request-handling/request-handling.component';
 

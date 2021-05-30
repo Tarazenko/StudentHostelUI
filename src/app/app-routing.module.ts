@@ -26,7 +26,8 @@ const routes: Routes = [
   { path: 'news/:id', component: NewsComponent },
   { path: 'service', component: ServiceBoardComponent },
   { path: 'about', component: AboutComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full' }
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];
 
 @NgModule({

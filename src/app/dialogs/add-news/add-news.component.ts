@@ -35,19 +35,9 @@ export class AddNewsComponent implements OnInit {
               public newsService: NewsService,
               private _formBuilder: FormBuilder
   ) {
-/*    this.fileControl = new FormControl(this.file, [
-      Validators.required,
-      MaxSizeValidator(this.maxSize * 1024 * 1024)
-    ]);*/
   }
 
   ngOnInit(): void {
-/*     this.fileControl.valueChanges.subscribe((file: any) => {
-      this.file = file;
-      if (!this.fileControl.errors) {
-        this.shouldDisable = false;
-      }
-    });*/
     this.formGroup = this._formBuilder.group({
       fileControl: [this.file, [
         Validators.required,
@@ -72,18 +62,14 @@ export class AddNewsComponent implements OnInit {
   }
 
   addNews(): void {
-    console.log('File to upload - ', this.file.name);
     if (this.file) {
         this.uploadService.uploadFile(this.file).subscribe({
           next: data => {
             this.ifile = data;
-            console.log('Success upload file -' + JSON.stringify(this.ifile));
             if (this.ifile) {
               this.news.file = this.ifile;
-              console.log('File from server - ', JSON.stringify(this.ifile));
               this.newsService.addNews(this.news).subscribe({
                 next: serverNews => {
-                  console.log('News from server - ' + JSON.stringify(serverNews));
                 },
                 error: error => {
                   this.errorMessage = error.message;
