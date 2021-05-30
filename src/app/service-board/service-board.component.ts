@@ -17,31 +17,37 @@ export class ServiceBoardComponent implements OnInit {
   statuses = new Map();
   show = false;
 
+  isUser = false;
+
   constructor(private requestService: RequestService,
               private tokenService: TokenStorageService) {
-    this.user =  <User> tokenService.getUser();
-    // @ts-ignore
-    const roles = this.user.roles;
-    this.show = roles.includes('ROLE_ADMIN') || roles.includes('ROLE_MODERATOR');
-    console.log(this.show);
+    this.user = <User> tokenService.getUser();
+    if (this.user) {
+      // @ts-ignore
+      const roles = this.user.roles;
+      this.show = roles.includes('ROLE_ADMIN') || roles.includes('ROLE_MODERATOR');
+      this.isUser = roles.includes('ROLE_ADMIN') || roles.includes('ROLE_MODERATOR')
+        || roles.includes('ROLE_USER');
+      console.log(this.show);
 
-    this.statuses.set('WAITING', ['query_builder', 'color_blue', 'В ожидании']);
-    this.statuses.set('IN_PROGRESS', ['notifications', 'color_blue', 'В процессе']);
-    this.statuses.set('ERROR', ['cancel', 'color_red', 'Отклонена']);
-    this.statuses.set('DONE', ['check_circle_outline', 'color_green', 'Завершено']);
+      this.statuses.set('WAITING', ['query_builder', 'color_blue', 'В ожидании']);
+      this.statuses.set('IN_PROGRESS', ['notifications', 'color_blue', 'В процессе']);
+      this.statuses.set('ERROR', ['cancel', 'color_red', 'Отклонена']);
+      this.statuses.set('DONE', ['check_circle_outline', 'color_green', 'Завершено']);
+      this.requestService.getUserRequests(this.user.id).subscribe({
+        next: data => {
+          console.log('Requests from server - ' + JSON.stringify(data));
+          this.requests = JSON.parse(data);
+        },
+        error: error => {
+          this.error = error.message;
+          console.error('There was an error!', error);
+        }
+      });
+    }
   }
 
   ngOnInit(): void {
-    this.requestService.getUserRequests(this.user.id).subscribe({
-      next: data => {
-        console.log('Requests from server - ' + JSON.stringify(data));
-        this.requests = JSON.parse(data);
-      },
-      error: error => {
-        this.error = error.message;
-        console.error('There was an error!', error);
-      }
-    });
   }
 
 }

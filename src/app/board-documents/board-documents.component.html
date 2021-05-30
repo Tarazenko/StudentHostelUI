@@ -1,9 +1,9 @@
-<div class="three"><h1>Документы</h1></div>
+<div class="three" *ngIf="isUser"><h1>Документы</h1></div>
 <div class="center" *ngIf="show">
   <button mat-raised-button color="primary" (click)="addCategory()">Добавить категорию</button>
   <button mat-raised-button color="primary" (click)="addDocument()" style="margin-left: 10px">Добавить документ</button>
 </div>
-<div class="center">
+<div class="center" *ngIf="isUser">
   <mat-accordion>
     <mat-expansion-panel *ngFor="let category of categories" [disabled]="clickButton" (click)="clickButton=false">
       <mat-expansion-panel-header class="row">
@@ -33,4 +33,15 @@
       </div>
     </mat-expansion-panel>
   </mat-accordion>
+</div>
+<div *ngIf="!isUser">
+  <div class="col-md-12">
+    <div class="card card-container">
+      <p>
+      Пожалуйста
+        <a href="http://localhost:4200/login">войдите</a> или <a href="http://localhost:4200/register">
+        зарегистрируйтесь</a>.
+      </p>
+    </div>
+  </div>
 </div>

@@ -32,6 +32,8 @@ export class BoardDocumentsComponent implements OnInit {
 
   show = false;
 
+  isUser = false;
+
   clickButton = false;
   documentMessage: string;
   categoryMessage: string;
@@ -43,30 +45,31 @@ export class BoardDocumentsComponent implements OnInit {
   ngOnInit(): void {
 
     const user = this.tokenStorageService.getUser();
+    if (user) {
+      this.show = user.roles.includes('ROLE_ADMIN') || user.roles.includes('ROLE_MODERATOR');
+      this.isUser = user.roles.includes('ROLE_ADMIN') || user.roles.includes('ROLE_MODERATOR')
+        || user.roles.includes('ROLE_USER');
 
-    this.show = user.roles.includes('ROLE_ADMIN') || user.roles.includes('ROLE_MODERATOR');
-
-    this.documentService.getCategories().subscribe(
-      data => {
-        this.categories = JSON.parse(data);
-        return this.categories;
-      },
-      err => {
-        this.categories = JSON.parse(err.error).message;
-      }
-    );
-
-    this.documentService.getDocuments().subscribe(
-      data => {
-        this.documents = JSON.parse(data);
-        console.log('Documents in sub - ', JSON.stringify(this.documents));
-        return this.documents;
-      },
-      err => {
-        this.categories = JSON.parse(err.error).message;
-      }
-    );
-
+      this.documentService.getCategories().subscribe(
+        data => {
+          this.categories = JSON.parse(data);
+          return this.categories;
+        },
+        err => {
+          this.categories = JSON.parse(err.error).message;
+        }
+      );
+      this.documentService.getDocuments().subscribe(
+        data => {
+          this.documents = JSON.parse(data);
+          console.log('Documents in sub - ', JSON.stringify(this.documents));
+          return this.documents;
+        },
+        err => {
+          this.categories = JSON.parse(err.error).message;
+        }
+      );
+    }
   }
 
   addCategory(): void {
